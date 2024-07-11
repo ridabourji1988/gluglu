@@ -1,8 +1,5 @@
 # streamlit_app.py
-import sys
-print("Python executable:", sys.executable)
-print("Python version:", sys.version)
-print("sys.path:", sys.path)
+
 
 from colorama import Fore, Style, init
 import streamlit as st
