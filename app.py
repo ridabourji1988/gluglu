@@ -72,6 +72,16 @@ if barcode_data:
         # Display allergen tags if any exist
         if allergens:
             col2.markdown("**Allergens:** " + " | ".join(allergens), unsafe_allow_html=True)
+       
+        # Display Ingredients Section       
+        ingredients_text = product.get("ingredients_text", "Ingredients not available.")
+
+        # Display Ingredients Section
+        with st.expander("📝 Ingredients"):
+            formatted_ingredients = "- " + "\n- ".join(ingredients_text.split(", "))
+            st.markdown(formatted_ingredients)
+
+
         
         # Improved Nutritional Information Display
         with st.expander("Nutritional Information"):
@@ -79,6 +89,7 @@ if barcode_data:
             df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutrient", "Value"])
             df_nutrients = df_nutrients[df_nutrients["Nutrient"].str.contains("_100g")]
             df_nutrients["Nutrient"] = df_nutrients["Nutrient"].str.replace("_100g", "").str.replace("_", " ").str.capitalize()
+            df_nutrients["Value"] = df_nutrients["Value"].astype(float).round(1)  # Format values to one decimal place
             st.table(df_nutrients)
         
         with st.expander("Additional Information"):
