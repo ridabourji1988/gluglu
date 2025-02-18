@@ -1,26 +1,24 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import requests
 import pandas as pd
 import json
 import os
+import streamlit.components.v1 as components
 
 ##############################
-# 1) Product Detail Function #
+# 1) get_product_details
 ##############################
 def get_product_details(barcode_data):
     """
-    Example: Fetch product details from OpenFoodFacts.
-    Return a dictionary with the same keys you used in your expansions:
+    Example: fetch from OpenFoodFacts or your own endpoint.
+    Return a dict with:
       'image_url', 'attribute_groups', 'nutriments', 'ingredients_text', 'url', etc.
     """
-    # Query the OpenFoodFacts API
     url = f"https://world.openfoodfacts.org/api/v0/product/{barcode_data}.json"
     resp = requests.get(url).json()
-
     if "product" in resp:
         return resp["product"]
-    return None  # If not found or invalid
+    return None
 
 ##############################
 # 2) Basic Setup
@@ -28,91 +26,102 @@ def get_product_details(barcode_data):
 if not os.path.exists("items"):
     os.makedirs("items")
 
-st.set_page_config(page_title="Scan Barcode", page_icon="📸", layout="wide")
-st.title("📸 Scan Your Products")
-st.write("Scan a barcode in your browser and retrieve product details instantly.")
+st.set_page_config(page_title="Zxing Direct Camera", page_icon="📸", layout="wide")
+st.title("📸 Zxing Scanner - No Iframe")
+st.write("""
+**If you’re on iOS Safari**:  
+1) Make sure you're in **Safari** itself (not an in-app browser).  
+2) Check camera permission in device settings.  
+3) If it still won't prompt, try "Add to Home Screen" or test on a desktop/Android device to confirm everything works.
+""")
 
-# Read any "?barcode=XXXX" param from the URL using st.query_params
+# We'll parse "?barcode=..." from st.query_params
 query_params = st.query_params
-barcode_data = query_params.get("barcode", [None])[0]  # Get first value or None
+barcode_data = query_params.get("barcode", [None])[0]
 
 ##############################
-# 3) Two Columns
+# 3) Two Columns Layout
 ##############################
-col1, col2 = st.columns([1, 1])
+col1, col2 = st.columns([1,1])
 
 ##############################
-# 4) LEFT: Browser-Based Scanner
+# 4) LEFT: Directly Insert the Zxing JS
 ##############################
 with col1:
-    st.markdown("### Browser Scanner")
+    st.markdown("### Live Camera (No iFrame)")
     st.info(
-        "1. **Allow camera** access when prompted.\n"
-        "2. Point a **barcode** at your camera.\n"
-        "3. When detected, the page **reloads** with `?barcode=XXX`.\n"
-        "4. See product details on the right.\n"
+        "1) **Allow camera** if prompted.\n"
+        "2) Show a barcode.\n"
+        "3) On success, `?barcode=CODE` updates in the URL.\n"
+        "4) Check product details on the right."
     )
 
-    # We'll embed the Zxing code in an iframe, with camera permissions
-    # On successful scan, we set window.parent.location.search = "?barcode=thecode"
-    html_content = """
+    # HTML that loads Zxing, uses camera, updates parent URL with "?barcode=..."
+    # placed directly in the top-level of the HTML snippet
+    zxing_html = """
     <!DOCTYPE html>
     <html>
       <head>
         <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@latest"></script>
         <style>
-          body { margin: 0; padding: 0; }
-          video { border: 1px solid #999; }
-          #log { margin-top: 1em; color: green; }
+          body {
+            margin: 0; padding: 0;
+            background-color: #f8f9fa;
+            font-family: sans-serif;
+          }
+          #video {
+            border: 1px solid #ccc;
+          }
         </style>
       </head>
       <body>
         <h4 style="margin:0.5em;">Camera Preview</h4>
         <video id="video" width="300" height="200"></video>
-        <div id="log">Initializing camera...</div>
+        <div id="log" style="margin-top:1em;color:green;">Initializing camera...</div>
 
         <script>
           const codeReader = new ZXing.BrowserMultiFormatReader();
           const videoElem = document.getElementById('video');
           const logElem   = document.getElementById('log');
 
-          codeReader.getVideoInputDevices().then(videoInputDevices => {
-            if (videoInputDevices.length === 0) {
-              logElem.innerText = "No camera found.";
-              return;
-            }
-            // Use first camera device
-            const deviceId = videoInputDevices[0].deviceId;
-            codeReader.decodeFromVideoDevice(deviceId, videoElem, (result, err) => {
-              if (result) {
-                const text = result.getText();
-                // On success, reload with ?barcode=text
-                window.parent.location.search = "barcode=" + encodeURIComponent(text);
+          codeReader.getVideoInputDevices()
+            .then((devices) => {
+              if (devices.length === 0) {
+                logElem.innerText = "No camera found.";
+                return;
               }
-              if (err && !(err instanceof ZXing.NotFoundException)) {
-                console.error(err);
-              }
+              const deviceId = devices[0].deviceId;
+
+              // Start decoding from video
+              codeReader.decodeFromVideoDevice(deviceId, videoElem, (result, err) => {
+                if (result) {
+                  const text = result.getText();
+                  // Reload page with ?barcode=...
+                  window.location.search = "barcode=" + encodeURIComponent(text);
+                }
+                if (err && !(err instanceof ZXing.NotFoundException)) {
+                  console.error(err);
+                }
+              });
+            })
+            .catch(err => {
+              logElem.innerText = "Camera error: " + err;
             });
-          })
-          .catch(err => {
-            logElem.innerText = "Camera error: " + err;
-          });
         </script>
       </body>
     </html>
     """
 
-    iframe_code = f"""
-    <iframe 
-      srcdoc="{html_content.replace('"', '&quot;')}"
-      width="320" 
-      height="370"
-      allow="camera; microphone"
-      style="border:none;"
-    ></iframe>
-    """
-
-    components.html(iframe_code, height=400, scrolling=False)
+    # Use components.html with allow="camera; microphone" 
+    # so the top-level snippet can request camera
+    components.html(
+        zxing_html,
+        height=400,
+        scrolling=False
+        # There's no direct argument to set "allow=..." in this call,
+        # but Streamlit sets the top-level iframe. Usually this is enough.
+        # If iOS Safari still blocks, see the 'Add to Home Screen' trick.
+    )
 
 ##############################
 # 5) RIGHT: Product Details
@@ -121,15 +130,12 @@ with col2:
     st.markdown("### Product Details")
     if barcode_data:
         st.success(f"**Barcode Detected:** `{barcode_data}`")
-
-        # Fetch product details
         product = get_product_details(barcode_data)
-
         if product:
-            # 5A) Product Image
-            st.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
+            # Show image
+            st.image(product.get("image_url", "https://via.placeholder.com/150"), width=200)
 
-            # 5B) Allergens from attribute_groups
+            # Collect allergens
             allergens = []
             attribute_groups = product.get('attribute_groups', [])
             for group in attribute_groups:
@@ -141,21 +147,19 @@ with col2:
                         elif "Peut contenir" in title:
                             allergens.append(f"<span style='color:orange;'>{title.replace('Peut contenir : ', '')}</span>")
 
-            # Display allergen tags if any
             if allergens:
                 st.markdown("**Allergens:** " + " | ".join(allergens), unsafe_allow_html=True)
 
-            # 5C) Ingredients Section
+            # Ingredients
             ingredients_text = product.get("ingredients_text", "Ingredients not available.")
             with st.expander("📝 Ingredients"):
                 formatted_ingredients = "- " + "\n- ".join(ingredients_text.split(", "))
                 st.markdown(formatted_ingredients)
 
-            # 5D) Nutritional Information
+            # Nutritional Info
             with st.expander("Nutritional Information"):
                 nutriments = product.get("nutriments", {})
                 df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutrient", "Value"])
-                # Filter for keys with "_100g"
                 df_nutrients = df_nutrients[df_nutrients["Nutrient"].str.contains("_100g")]
                 df_nutrients["Nutrient"] = (
                     df_nutrients["Nutrient"]
@@ -163,7 +167,6 @@ with col2:
                     .str.replace("_", " ")
                     .str.capitalize()
                 )
-                # Convert to float if possible
                 def try_float(x):
                     try:
                         return float(x)
@@ -172,15 +175,14 @@ with col2:
                 df_nutrients["Value"] = df_nutrients["Value"].apply(try_float)
                 st.table(df_nutrients)
 
-            # 5E) Additional Info
             with st.expander("Additional Information"):
                 st.write(f"**[OpenFoodFacts URL]({product.get('url', 'N/A')})**")
 
-            # 5F) Save JSON Button
+            # Save JSON
             json_data = json.dumps(product, indent=4)
             file_path = os.path.join("items", f"product_{barcode_data}.json")
-            with open(file_path, "w") as json_file:
-                json_file.write(json_data)
+            with open(file_path, "w") as f:
+                f.write(json_data)
 
             st.download_button(
                 label="💾 Save as JSON",
@@ -191,6 +193,4 @@ with col2:
         else:
             st.error("❌ Product not found.")
     else:
-        st.warning("No barcode detected yet. Aim your camera at a barcode on the left.")
-
-
+        st.info("No barcode detected yet. Show a barcode to the camera on the left.")
