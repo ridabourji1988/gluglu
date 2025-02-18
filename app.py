@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import cv2
 from PIL import Image
 import json
 import os
@@ -25,14 +26,28 @@ uploaded_file = col1.file_uploader("Upload an image with a barcode", type=["jpg"
 
 barcode_data = None
 
+def preprocess_image(image):
+    """Enhance image for barcode detection"""
+    image = Image.open(image).convert("L")  # Convert to grayscale
+    image = np.array(image)
+
+    # Apply adaptive threshold for better contrast
+    image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 10)
+
+    # Rotate image if barcode is vertical
+    if image.shape[0] > image.shape[1]:  # If height > width, rotate
+        image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+
+    return image
+
 def scan_barcode(image):
     """Extract barcode using ZXing"""
     reader = pyzxing.BarCodeReader()
     
     # Save uploaded image temporarily
     image_path = "temp_barcode.jpg"
-    with open(image_path, "wb") as f:
-        f.write(image.read())
+    processed_image = preprocess_image(image)
+    cv2.imwrite(image_path, processed_image)
 
     # Decode barcode
     barcode = reader.decode(image_path)
@@ -44,7 +59,7 @@ def scan_barcode(image):
 
 if uploaded_file:
     # Show the uploaded image
-    col1.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
+    col1.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
 
     # Scan barcode from the image
     barcode_data = scan_barcode(uploaded_file)
@@ -84,19 +99,4 @@ if uploaded_file:
             with st.expander("Additional Information"):
                 st.write(f"**[OpenFoodFacts URL]({product.get('url', 'N/A')})**")
 
-            # Save JSON Button
-            json_data = json.dumps(product, indent=4)
-            file_path = os.path.join("items", f"product_{barcode_data}.json")
-            with open(file_path, "w") as json_file:
-                json_file.write(json_data)
-
-            st.download_button(
-                label="💾 Save as JSON",
-                file_name=f"product_{barcode_data}.json",
-                mime="application/json",
-                data=json_data
-            )
-        else:
-            col2.error("❌ Product not found.")
-    else:
-        col2.error("⚠️ Unable to detect barcode. Please try another image.")
+            # Save JS
