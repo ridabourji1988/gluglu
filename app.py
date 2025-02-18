@@ -1,10 +1,11 @@
 import streamlit as st
-import cv2
 import numpy as np
 from pyzbar.pyzbar import decode
+from PIL import Image
 import json
 import os
 import pandas as pd
+import requests
 
 # Ensure 'items' folder exists
 if not os.path.exists("items"):
@@ -25,15 +26,13 @@ uploaded_file = col1.file_uploader("Upload an image with a barcode", type=["jpg"
 barcode_data = None
 
 def scan_barcode(image):
-    """Scan barcode from uploaded image."""
+    """Scan barcode from uploaded image using pyzbar."""
     global barcode_data
-    image_array = np.array(bytearray(image.read()), dtype=np.uint8)
-    frame = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
-
+    image = Image.open(image)  # Open image using PIL
+    frame = np.array(image)  # Convert to NumPy array
+    
     for barcode in decode(frame):
         barcode_data = barcode.data.decode('utf-8')
-        rect = barcode.rect
-        cv2.rectangle(frame, (rect.left, rect.top), (rect.left + rect.width, rect.top + rect.height), (0, 255, 0), 2)
         return barcode_data
     return None
 
@@ -44,13 +43,13 @@ if barcode_data:
     col2.success(f"**Barcode Detected:** `{barcode_data}`")
     
     # Fetch product details from OpenFoodFacts API
-    import requests
     response = requests.get(f"https://world.openfoodfacts.org/api/v0/product/{barcode_data}.json")
     product_data = response.json()
 
     if "product" in product_data:
         product = product_data["product"]
 
+        # Display Product Image
         col2.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
 
         # Extract and display allergens
