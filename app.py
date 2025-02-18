@@ -1,11 +1,11 @@
 import streamlit as st
 import numpy as np
-from pyzbar.pyzbar import decode
 from PIL import Image
 import json
 import os
 import pandas as pd
 import requests
+import pytesseract  # OCR-based barcode reader
 
 # Ensure 'items' folder exists
 if not os.path.exists("items"):
@@ -26,15 +26,14 @@ uploaded_file = col1.file_uploader("Upload an image with a barcode", type=["jpg"
 barcode_data = None
 
 def scan_barcode(image):
-    """Scan barcode from uploaded image using pyzbar."""
-    global barcode_data
-    image = Image.open(image)  # Open image using PIL
-    frame = np.array(image)  # Convert to NumPy array
+    """Extract barcode text using OCR (Tesseract)"""
+    image = Image.open(image).convert("L")  # Convert to grayscale
+    barcode_text = pytesseract.image_to_string(image)
     
-    for barcode in decode(frame):
-        barcode_data = barcode.data.decode('utf-8')
-        return barcode_data
-    return None
+    # Extract barcode-like numeric values
+    barcode_data = "".join(filter(str.isdigit, barcode_text))
+    
+    return barcode_data if barcode_data else None
 
 if uploaded_file:
     barcode_data = scan_barcode(uploaded_file)
@@ -49,7 +48,6 @@ if barcode_data:
     if "product" in product_data:
         product = product_data["product"]
 
-        # Display Product Image
         col2.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
 
         # Extract and display allergens
