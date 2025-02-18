@@ -1,0 +1,2693 @@
+{
+    "attribute_groups": [
+        {
+            "attributes": [
+                {
+                    "description": "",
+                    "description_short": "Moins bonne qualit\u00e9 nutritionnelle",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-e-new-fr.svg",
+                    "id": "nutriscore",
+                    "match": 11.3636363636364,
+                    "name": "Nutri-Score",
+                    "panel_id": "nutriscore_2023",
+                    "status": "known",
+                    "title": "Nutri-Score E"
+                },
+                {
+                    "description_short": "1.1 g / 100 g",
+                    "grade": "d",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/nutrient-level-salt-medium.svg",
+                    "id": "low_salt",
+                    "match": 40,
+                    "name": "Sel",
+                    "panel_id": "nutrient_level_salt",
+                    "status": "known",
+                    "title": "Sel en quantit\u00e9 mod\u00e9r\u00e9e"
+                },
+                {
+                    "description_short": "26 g / 100 g",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/nutrient-level-fat-high.svg",
+                    "id": "low_fat",
+                    "match": 14,
+                    "name": "Mati\u00e8res grasses",
+                    "panel_id": "nutrient_level_fat",
+                    "status": "known",
+                    "title": "Mati\u00e8res grasses en quantit\u00e9 \u00e9lev\u00e9e"
+                },
+                {
+                    "description_short": "26 g / 100 g",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/nutrient-level-sugars-high.svg",
+                    "id": "low_sugars",
+                    "match": 0,
+                    "name": "Sucres",
+                    "panel_id": "nutrient_level_sugars",
+                    "status": "known",
+                    "title": "Sucres en quantit\u00e9 \u00e9lev\u00e9e"
+                },
+                {
+                    "description_short": "17 g / 100 g",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/nutrient-level-saturated-fat-high.svg",
+                    "id": "low_saturated_fat",
+                    "match": 0,
+                    "name": "Acides gras satur\u00e9s",
+                    "panel_id": "nutrient_level_saturated_fat",
+                    "status": "known",
+                    "title": "Acides gras satur\u00e9s en quantit\u00e9 \u00e9lev\u00e9e"
+                }
+            ],
+            "id": "nutritional_quality",
+            "name": "Qualit\u00e9 nutritionnelle"
+        },
+        {
+            "attributes": [
+                {
+                    "debug": "en:gluten in allergens",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/contains-gluten.svg",
+                    "id": "allergens_no_gluten",
+                    "match": 0,
+                    "name": "Gluten",
+                    "status": "known",
+                    "title": "Contient : Gluten"
+                },
+                {
+                    "debug": "en:milk in allergens",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/contains-milk.svg",
+                    "id": "allergens_no_milk",
+                    "match": 0,
+                    "name": "Lait",
+                    "status": "known",
+                    "title": "Contient : Lait"
+                },
+                {
+                    "debug": "en:eggs in allergens",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/contains-eggs.svg",
+                    "id": "allergens_no_eggs",
+                    "match": 0,
+                    "name": "\u0152ufs",
+                    "status": "known",
+                    "title": "Contient : \u0152ufs"
+                },
+                {
+                    "debug": "en:nuts in traces",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/may-contain-nuts.svg",
+                    "id": "allergens_no_nuts",
+                    "match": 20,
+                    "name": "Fruits \u00e0 coque",
+                    "status": "known",
+                    "title": "Peut contenir : Fruits \u00e0 coque"
+                },
+                {
+                    "debug": "too many unknown ingredients: 11 ingredients (2 unknown)",
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/peanuts-content-unknown.svg",
+                    "id": "allergens_no_peanuts",
+                    "name": "Arachides",
+                    "panel_id": "ingredients_analysis_details",
+                    "status": "unknown",
+                    "title": "Pr\u00e9sence inconnue : Arachides"
+                },
+                {
+                    "debug": "en:sesame-seeds in traces",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/may-contain-sesame-seeds.svg",
+                    "id": "allergens_no_sesame_seeds",
+                    "match": 20,
+                    "name": "Graines de s\u00e9same",
+                    "status": "known",
+                    "title": "Peut contenir : Graines de s\u00e9same"
+                },
+                {
+                    "debug": "en:soybeans in traces",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/may-contain-soybeans.svg",
+                    "id": "allergens_no_soybeans",
+                    "match": 20,
+                    "name": "Soja",
+                    "status": "known",
+                    "title": "Peut contenir : Soja"
+                },
+                {
+                    "debug": "too many unknown ingredients: 11 ingredients (2 unknown)",
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/celery-content-unknown.svg",
+                    "id": "allergens_no_celery",
+                    "name": "C\u00e9leri",
+                    "panel_id": "ingredients_analysis_details",
+                    "status": "unknown",
+                    "title": "Pr\u00e9sence inconnue : C\u00e9leri"
+                },
+                {
+                    "debug": "too many unknown ingredients: 11 ingredients (2 unknown)",
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/mustard-content-unknown.svg",
+                    "id": "allergens_no_mustard",
+                    "name": "Moutarde",
+                    "panel_id": "ingredients_analysis_details",
+                    "status": "unknown",
+                    "title": "Pr\u00e9sence inconnue : Moutarde"
+                },
+                {
+                    "debug": "too many unknown ingredients: 11 ingredients (2 unknown)",
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/lupin-content-unknown.svg",
+                    "id": "allergens_no_lupin",
+                    "name": "Lupin",
+                    "panel_id": "ingredients_analysis_details",
+                    "status": "unknown",
+                    "title": "Pr\u00e9sence inconnue : Lupin"
+                },
+                {
+                    "debug": "too many unknown ingredients: 11 ingredients (2 unknown)",
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/fish-content-unknown.svg",
+                    "id": "allergens_no_fish",
+                    "name": "Poisson",
+                    "panel_id": "ingredients_analysis_details",
+                    "status": "unknown",
+                    "title": "Pr\u00e9sence inconnue : Poisson"
+                },
+                {
+                    "debug": "too many unknown ingredients: 11 ingredients (2 unknown)",
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/crustaceans-content-unknown.svg",
+                    "id": "allergens_no_crustaceans",
+                    "name": "Crustac\u00e9s",
+                    "panel_id": "ingredients_analysis_details",
+                    "status": "unknown",
+                    "title": "Pr\u00e9sence inconnue : Crustac\u00e9s"
+                },
+                {
+                    "debug": "too many unknown ingredients: 11 ingredients (2 unknown)",
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/molluscs-content-unknown.svg",
+                    "id": "allergens_no_molluscs",
+                    "name": "Mollusques",
+                    "panel_id": "ingredients_analysis_details",
+                    "status": "unknown",
+                    "title": "Pr\u00e9sence inconnue : Mollusques"
+                },
+                {
+                    "debug": "too many unknown ingredients: 11 ingredients (2 unknown)",
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/sulphur-dioxide-and-sulphites-content-unknown.svg",
+                    "id": "allergens_no_sulphur_dioxide_and_sulphites",
+                    "name": "Anhydride sulfureux et sulfites",
+                    "panel_id": "ingredients_analysis_details",
+                    "status": "unknown",
+                    "title": "Pr\u00e9sence inconnue : Anhydride sulfureux et sulfites"
+                }
+            ],
+            "id": "allergens",
+            "name": "Allerg\u00e8nes",
+            "warning": "Il est toujours possible que les donn\u00e9es sur les allerg\u00e8nes soient manquantes, incompl\u00e8tes, incorrectes ou que la composition du produit ait chang\u00e9. Si vous \u00eates allergique, v\u00e9rifiez toujours les informations sur l'emballage r\u00e9el du produit."
+        },
+        {
+            "attributes": [
+                {
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/non-vegan.svg",
+                    "id": "vegan",
+                    "match": 0,
+                    "name": "V\u00e9g\u00e9talien",
+                    "panel_id": "ingredients_analysis_en:non-vegan",
+                    "status": "known",
+                    "title": "Non v\u00e9g\u00e9talien"
+                },
+                {
+                    "grade": "unknown",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/vegetarian-status-unknown.svg",
+                    "id": "vegetarian",
+                    "name": "V\u00e9g\u00e9tarien",
+                    "panel_id": "ingredients_analysis_en:vegetarian-status-unknown",
+                    "status": "unknown",
+                    "title": "Caract\u00e8re v\u00e9g\u00e9tarien inconnu"
+                },
+                {
+                    "grade": "a",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/palm-oil-free.svg",
+                    "id": "palm_oil_free",
+                    "match": 100,
+                    "name": "Sans huile de palme",
+                    "panel_id": "ingredients_analysis_en:palm-oil-free",
+                    "status": "known",
+                    "title": "Sans huile de palme"
+                }
+            ],
+            "id": "ingredients_analysis",
+            "name": "Ingr\u00e9dients"
+        },
+        {
+            "attributes": [
+                {
+                    "grade": "b",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/nova-group-3.svg",
+                    "id": "nova",
+                    "match": 75,
+                    "name": "Groupe NOVA",
+                    "panel_id": "nova",
+                    "status": "known",
+                    "title": "Aliments transform\u00e9s"
+                },
+                {
+                    "grade": "d",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/3-additives.svg",
+                    "id": "additives",
+                    "match": 40,
+                    "name": "Additifs",
+                    "panel_id": "additives",
+                    "status": "known",
+                    "title": "3 additifs"
+                }
+            ],
+            "id": "processing",
+            "name": "Transformation des aliments"
+        },
+        {
+            "attributes": [
+                {
+                    "description": "",
+                    "description_short": "Tr\u00e8s faible impact environnemental",
+                    "grade": "b",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/green-score-a.svg",
+                    "id": "ecoscore",
+                    "match": 78,
+                    "name": "Green-Score",
+                    "panel_id": "environmental_score",
+                    "status": "known",
+                    "title": "Green-Score A"
+                },
+                {
+                    "description": "",
+                    "description_short": "Pas de risque de d\u00e9forestation",
+                    "grade": "a",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/forest-footprint-a.svg",
+                    "id": "forest_footprint",
+                    "match": 99.8635,
+                    "name": "Empreinte for\u00eat",
+                    "status": "known",
+                    "title": "Tr\u00e8s petite empreinte for\u00eat"
+                }
+            ],
+            "id": "environment",
+            "name": "Environnement"
+        },
+        {
+            "attributes": [
+                {
+                    "description": "L'agriculture biologique vise \u00e0 prot\u00e9ger l'environnement et \u00e0 conserver la biodiversit\u00e9 en prohibant ou limitant l'utilisation d'engrais synth\u00e9tiques, de pesticides et d'additifs alimentaires.",
+                    "description_short": "Les produits bios encouragent la durabilit\u00e9 \u00e9cologique et la biodiversit\u00e9.",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/not-organic.svg",
+                    "id": "labels_organic",
+                    "match": 0,
+                    "name": "Agriculture biologique",
+                    "status": "known",
+                    "title": "Pas un produit bio"
+                },
+                {
+                    "description": "Quand vous achetez des produits du commerce \u00e9quitable, les producteurs dans les pays en d\u00e9veloppement sont pay\u00e9s un prix plus haut et plus \u00e9quitable, ce qui les aide \u00e0 atteindre des plus hauts standards sociaux et environnementaux et \u00e0 les conserver.",
+                    "description_short": "Les produits du commerce \u00e9quitable aident les producteurs des pays en voie de d\u00e9veloppement.",
+                    "grade": "e",
+                    "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/not-fair-trade.svg",
+                    "id": "labels_fair_trade",
+                    "match": 0,
+                    "name": "Commerce \u00e9quitable",
+                    "status": "known",
+                    "title": "Ne provient pas du commerce \u00e9quitable"
+                }
+            ],
+            "id": "labels",
+            "name": "Labels"
+        }
+    ],
+    "brands": "St Michel",
+    "categories": "Snacks, Snacks sucr\u00e9s, Biscuits et g\u00e2teaux, Biscuits, Biscuits sabl\u00e9s, Palets",
+    "categories_tags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits",
+        "en:shortbread-cookies",
+        "fr:palets"
+    ],
+    "code": "3023470020016",
+    "creator": "openfoodfacts-contributors",
+    "data_quality_tags": [
+        "en:packaging-data-incomplete",
+        "en:ingredients-percent-analysis-ok",
+        "en:carbon-footprint-from-known-ingredients-but-not-from-meat-or-fish",
+        "en:environmental-score-extended-data-not-computed",
+        "en:food-groups-1-known",
+        "en:food-groups-2-known",
+        "en:food-groups-3-unknown",
+        "en:nutri-score-grade-from-label-does-not-match-calculated-grade",
+        "en:environmental-score-production-system-no-label"
+    ],
+    "ecoscore_grade": "a",
+    "editors": [
+        "",
+        "tacinte",
+        "aristoi"
+    ],
+    "image_url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/front_fr.158.400.jpg",
+    "ingredients_text": "Farine de bl\u00e9 52%, beurre 30%, sucre, \u0153ufs, sel, poudres \u00e0 lever: carbonates d'ammonium et de sodium et acide citrique. Traces \u00e9ventuelles de fruits \u00e0 coque, graines de s\u00e9same, soja. Tenir au sec, \u00e0 l'abri de la chaleur et de la lumi\u00e8re.",
+    "knowledge_panels": {
+        "additive_en:e330": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<p>L'acide citrique est un acide organique naturel pr\u00e9sent dans les agrumes tels que\nles citrons, les oranges et les citrons verts.</p>\n<p>Il est tr\u00e8s utilis\u00e9 dans l'industrie alimentaire comme exhausteur de go\u00fbt,\nacidifiant et conservateur en raison de son go\u00fbt acidul\u00e9 et rafra\u00eechissant.</p>\n<p>L'acide citrique peut \u00eatre consomm\u00e9 sans danger lorsqu'il est utilis\u00e9 avec mod\u00e9ration et est\nconsid\u00e9r\u00e9 comme un additif alimentaire g\u00e9n\u00e9ralement reconnu comme s\u00fbr par\nles agences sanitaires du monde entier.</p>"
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "E330 - Acide citrique"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "additive_en:e500": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<p>Les carbonates de sodium (E500) sont des compos\u00e9s couramment utilis\u00e9s dans la pr\u00e9paration des aliments\ncomme agents levants, aidant les produits de boulangerie \u00e0 lever en lib\u00e9rant du dioxyde de carbone\nlorsqu'ils interagissent avec les acides.</p>\n<p>Souvent pr\u00e9sents dans le bicarbonate de soude, ils r\u00e9gulent le pH des aliments, les emp\u00eachant\nde devenir trop acides ou trop alcalins. Dans le monde culinaire, les carbonates de sodium\npeuvent \u00e9galement am\u00e9liorer la texture et la structure des aliments, comme\nles nouilles, en modifiant le r\u00e9seau du gluten.</p>\n<p>G\u00e9n\u00e9ralement reconnus comme s\u00fbrs, les carbonates de sodium ne sont pas toxiques lorsqu'ils sont\nconsomm\u00e9s en quantit\u00e9s typiques trouv\u00e9es dans les aliments.</p>"
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "E500 - Carbonates de sodium"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "additive_en:e503": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<strong>Carbonate d'ammonium\u00a0:</strong> Le carbonate d'ammonium est un compos\u00e9 chimique de formule -NH4-2CO3. C'est un sel d'ammonium NH4+ et de carbonate CO32-. Il se pr\u00e9sente sous forme de cristaux cubiques incolores solubles dans l'eau et qui se d\u00e9composent enti\u00e8rement \u00e0 58 \u00b0C en ammoniac NH3, en eau H2O et en dioxyde de carbone CO2. Il a longtemps \u00e9t\u00e9 utilis\u00e9 pour ranimer les personnes \u00e9vanouies \u2014 d'o\u00f9 l'expression ancienne faire respirer des sels \u2014 et a \u00e9t\u00e9 le r\u00e9actif produisant du bicarbonate de sodium NaHCO3 et de la levure chimique -compos\u00e9e essentiellement de bicarbonate de sodium et d'acide tartrique HOOC-CHOH-CHOH-COOH-. On le pr\u00e9pare, en solution aqueuse, par r\u00e9action du dioxyde de carbone CO2 avec l'ammoniac NH3 :  2 NH3 + H2O + CO2 \u2192 -NH4-2CO3.On peut \u00e9galement l'obtenir en chauffant du carbonate de calcium CaCO3 avec du sulfate d'ammonium -NH4-2SO4, le carbonate d'ammonium se sublimant en laissant un r\u00e9sidu solide de sulfate de calcium CaSO4 :  CaCO3 + -NH4-2SO4 \u2192 -NH4-2CO3 + CaSO4.",
+                        "source_language": "Fran\u00e7ais",
+                        "source_lc": "fr",
+                        "source_text": "Wikipedia",
+                        "source_url": "https://fr.wikipedia.org/wiki/Carbonate d'ammonium"
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "E503 - Carbonates d'ammonium"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "additives": {
+            "elements": [
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "additive_en:e330"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "additive_en:e500"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "additive_en:e503"
+                    }
+                }
+            ],
+            "expanded": true,
+            "level": "info",
+            "topics": [
+                "health"
+            ],
+            "type": "inline"
+        },
+        "carbon_footprint": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                    <p>Le chiffre d'\u00e9mission carbone est issu de la base de donn\u00e9es Agribalyse de l'ADEME, pour la cat\u00e9gorie : \n                    <a href=\"https://agribalyse.ademe.fr/app/aliments/24071\">Sabl\u00e9 p\u00e2tissier</a>\n                    (Source : Base de donn\u00e9es ADEME Agribalyse)\n                    </p>\n                    ",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "table",
+                    "table_element": {
+                        "columns": [
+                            {
+                                "text": "Etape",
+                                "type": "text"
+                            },
+                            {
+                                "text": "Impact",
+                                "type": "percent"
+                            }
+                        ],
+                        "id": "environmental_score_carbon_impact_by_stages_table",
+                        "rows": [
+                            {
+                                "id": "agriculture",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/agriculture.svg",
+                                        "text": "Agriculture"
+                                    },
+                                    {
+                                        "percent": 83.2832159120615,
+                                        "text": "83.3 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "processing",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/processing.svg",
+                                        "text": "Transformation"
+                                    },
+                                    {
+                                        "percent": 7.83934014879625,
+                                        "text": "7.8 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "packaging",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/packaging.svg",
+                                        "text": "Emballage"
+                                    },
+                                    {
+                                        "percent": 3.68604686371004,
+                                        "text": "3.7 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "transportation",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/transportation.svg",
+                                        "text": "Transport"
+                                    },
+                                    {
+                                        "percent": 4.53926612700079,
+                                        "text": "4.5 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "distribution",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/distribution.svg",
+                                        "text": "Distribution"
+                                    },
+                                    {
+                                        "percent": 0.652130948431397,
+                                        "text": "0.7 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "consumption",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/consumption.svg",
+                                        "text": "Consommation"
+                                    },
+                                    {
+                                        "percent": 0,
+                                        "text": "0.0 %"
+                                    }
+                                ]
+                            }
+                        ],
+                        "table_type": "percents",
+                        "title": "D\u00e9tail des impacts par \u00e9tapes du cycle de vie"
+                    }
+                }
+            ],
+            "evaluation": "average",
+            "expanded": false,
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/car.svg",
+                "subtitle": "298 g de CO\u2082e pour 100 g de produit",
+                "title": "\u00c9quivaut \u00e0 parcourir 1.5 km dans une voiture \u00e0 essence"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "environment_card": {
+            "elements": [
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "environmental_score"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "carbon_footprint"
+                        ],
+                        "title": "Empreinte carbone"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "image": {
+                            "alt": "Roudor - Instruction de recyclage et/ou informations d'emballage",
+                            "id": "packaging_fr",
+                            "lc": "fr",
+                            "sizes": {
+                                "100": {
+                                    "height": 100,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/packaging_fr.115.100.jpg",
+                                    "width": 73
+                                },
+                                "200": {
+                                    "height": 200,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/packaging_fr.115.200.jpg",
+                                    "width": 145
+                                },
+                                "400": {
+                                    "height": 400,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/packaging_fr.115.400.jpg",
+                                    "width": 290
+                                },
+                                "full": {
+                                    "height": 4000,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/packaging_fr.115.full.jpg",
+                                    "width": 2903
+                                }
+                            },
+                            "type": "packaging"
+                        },
+                        "panel_group_id": "packaging_recycling",
+                        "panel_ids": [
+                            "packaging_recycling"
+                        ],
+                        "title": "Emballage"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "origins_of_ingredients"
+                        ],
+                        "title": "Transport"
+                    }
+                }
+            ],
+            "expanded": true,
+            "title_element": {
+                "title": "Environnement"
+            },
+            "topics": [
+                "environment"
+            ],
+            "type": "card"
+        },
+        "environmental_score": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "Le <a href=\"https://fr.openfoodfacts.org/green-score\">Green-Score</a> est un score exp\u00e9rimental qui synth\u00e9tise les impacts environnementaux des produits alimentaires."
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                    \n                        La formule du Green-Score est susceptible d'\u00e9voluer car elle est r\u00e9guli\u00e8rement am\u00e9lior\u00e9e pour la rendre plus pr\u00e9cise.\n                                    \n                ",
+                        "type": "note"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "environmental_score_agribalyse"
+                        ],
+                        "title": "Analyse du cycle de vie"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "environmental_score_origins_of_ingredients",
+                            "environmental_score_threatened_species",
+                            "environmental_score_packaging"
+                        ],
+                        "title": "Bonus et malus"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "environmental_score_total"
+                        ],
+                        "title": "Green-Score pour ce produit"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>&rarr; <a href=\"https://fr.openfoodfacts.org/green-score\">En savoir plus sur le Green-Score</a></p>\n"
+                    }
+                }
+            ],
+            "level": "info",
+            "title_element": {
+                "grade": "a",
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/green-score-a.svg",
+                "name": "Green-Score",
+                "subtitle": "Tr\u00e8s faible impact environnemental",
+                "title": "Green-Score A",
+                "type": "grade"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "environmental_score_agribalyse": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                    <p>Cat\u00e9gorie\u00a0: \n                    <a href=\"https://agribalyse.ademe.fr/app/aliments/24071\">Sabl\u00e9 p\u00e2tissier</a>\n                    </p>\n                    <ul>\n                        <li>\n                            Score environnemental PEF\u00a0: 0.34\n                            (plus le score est bas, plus l'impact est faible)\n                        </li>\n                        <li>\n                            dont impact sur le changement climatique\u00a0: 2.98\n                            kg CO2 eq/kg de produit\n                        </li>\n                    </ul>\n                    ",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "table",
+                    "table_element": {
+                        "columns": [
+                            {
+                                "text": "Etape",
+                                "type": "text"
+                            },
+                            {
+                                "text": "Impact",
+                                "type": "percent"
+                            }
+                        ],
+                        "id": "environmental_score_lca_impacts_by_stages_table",
+                        "rows": [
+                            {
+                                "id": "agriculture",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/agriculture.svg",
+                                        "text": "Agriculture"
+                                    },
+                                    {
+                                        "percent": 79.8140577195115,
+                                        "text": "79.8 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "processing",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/processing.svg",
+                                        "text": "Transformation"
+                                    },
+                                    {
+                                        "percent": 12.3778883027056,
+                                        "text": "12.4 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "packaging",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/packaging.svg",
+                                        "text": "Emballage"
+                                    },
+                                    {
+                                        "percent": 3.1776256965652,
+                                        "text": "3.2 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "transportation",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/transportation.svg",
+                                        "text": "Transport"
+                                    },
+                                    {
+                                        "percent": 3.23543870537994,
+                                        "text": "3.2 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "distribution",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/distribution.svg",
+                                        "text": "Distribution"
+                                    },
+                                    {
+                                        "percent": 1.39498957583769,
+                                        "text": "1.4 %"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "consumption",
+                                "values": [
+                                    {
+                                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/consumption.svg",
+                                        "text": "Consommation"
+                                    },
+                                    {
+                                        "percent": 0,
+                                        "text": "0.0 %"
+                                    }
+                                ]
+                            }
+                        ],
+                        "table_type": "percents",
+                        "title": "D\u00e9tail des impacts par \u00e9tapes du cycle de vie"
+                    }
+                }
+            ],
+            "level": "info",
+            "title_element": {
+                "grade": "b",
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/lca.svg",
+                "subtitle": "Cat\u00e9gorie\u00a0: Sabl\u00e9 p\u00e2tissier",
+                "title": "Impact moyen des produits de la m\u00eame cat\u00e9gorie\u00a0: B (Score: 70/100)",
+                "type": "grade"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "environmental_score_origins_of_ingredients": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                <strong>Politique environnementale\u00a0: +4</strong><br>\n                <strong>Transport\u00a0: +15</strong><br>\n                ",
+                        "type": "default"
+                    }
+                },
+                {
+                    "element_type": "table",
+                    "table_element": {
+                        "columns": [
+                            {
+                                "text": "Origine du produit et/ou de ses ingr\u00e9dients",
+                                "type": "text"
+                            },
+                            {
+                                "text": "% d'ingr\u00e9dients",
+                                "type": "percent"
+                            },
+                            {
+                                "text": "Impact",
+                                "type": "text"
+                            }
+                        ],
+                        "id": "environmental_score_origins_of_ingredients_table",
+                        "rows": [
+                            {
+                                "values": [
+                                    {
+                                        "text": "France"
+                                    },
+                                    {
+                                        "evaluation": "good",
+                                        "percent": 100,
+                                        "text": "100 %"
+                                    },
+                                    {
+                                        "evaluation": "good",
+                                        "text": "Faible"
+                                    }
+                                ]
+                            }
+                        ],
+                        "title": "Origines des ingr\u00e9dients"
+                    }
+                }
+            ],
+            "evaluation": "good",
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/public.svg",
+                "subtitle": "Bonus\u00a0: +19",
+                "title": "Origines des ingr\u00e9dients ayant un faible impact"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "environmental_score_packaging": {
+            "elements": [
+                {
+                    "element_type": "table",
+                    "table_element": {
+                        "columns": [
+                            {
+                                "text": "Forme",
+                                "type": "text"
+                            },
+                            {
+                                "text": "Mati\u00e8re",
+                                "type": "text"
+                            },
+                            {
+                                "text": "Recyclage",
+                                "type": "text"
+                            },
+                            {
+                                "text": "Impact",
+                                "type": "text"
+                            }
+                        ],
+                        "id": "environmental_score_packaging_components",
+                        "rows": [
+                            {
+                                "values": [
+                                    {
+                                        "text": "3 Sachet"
+                                    },
+                                    {
+                                        "text": "Plastique"
+                                    },
+                                    {
+                                        "evaluation": "good",
+                                        "text": "Recycler"
+                                    },
+                                    {
+                                        "evaluation": "bad",
+                                        "text": "\u00e9lev\u00e9"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "text": "1 \u00c9tui"
+                                    },
+                                    {
+                                        "text": "Carton"
+                                    },
+                                    {
+                                        "evaluation": "good",
+                                        "text": "Recycler"
+                                    },
+                                    {
+                                        "evaluation": "good",
+                                        "text": "Faible"
+                                    }
+                                ]
+                            }
+                        ],
+                        "title": "Elements d'emballage"
+                    }
+                }
+            ],
+            "evaluation": "average",
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/packaging.svg",
+                "subtitle": "Malus\u00a0: -11",
+                "title": "Emballage \u00e0 impact moyen"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "environmental_score_production_system": {
+            "evaluation": "neutral",
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/agriculture.svg",
+                "title": "Pas de labels avec des avantages environnementaux"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "environmental_score_threatened_species": {
+            "evaluation": "good",
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/monkey_happy.svg",
+                "title": "Aucun ingr\u00e9dient ne menace une esp\u00e8ce animale"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "environmental_score_total": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                Score d'analyse du cycle de vie\u00a0: 70<br>\n                Somme des bonus et malus\u00a0:\n                    \n                        +8\n                    <br><br>\n                Score final\u00a0: 78/100\n                ",
+                        "type": "summary"
+                    }
+                }
+            ],
+            "level": "info",
+            "title_element": {
+                "grade": "a",
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/green-score-a.svg",
+                "subtitle": "Produit\u00a0: Roudor - St Michel - 150\u00a0g",
+                "title": "Impact pour ce produit: A (Score: 78/100)",
+                "type": "grade"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "fr_report_product_signalconso": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\nVous avez rencontr\u00e9 un probl\u00e8me avec ce produit : <b>\u00e9tiquetage non conforme, produit p\u00e9rim\u00e9 encore en vente,\npr\u00e9sence d'un corps \u00e9tranger, etc.</b> ?<br>\nFaites un signalement \u00e0 l'entreprise et \u00e0 la r\u00e9pression des fraudes sur <a href=\"https://signal.conso.gouv.fr/fr/alimentaire-codebarres/faire-un-signalement?gtin=3023470020016&utm_source=openfoodfacts&utm_campaign=product_page_panel\">SignalConso</a>,\nun outil de la Direction g\u00e9n\u00e9rale de la concurrence, de la consommation et de la r\u00e9pression des fraudes (DGCCRF).\n                "
+                    }
+                },
+                {
+                    "element_type": "image",
+                    "image_element": {
+                        "alt": "Je fais un signalement sur SignalConso",
+                        "link_url": "https://signal.conso.gouv.fr/fr/alimentaire-codebarres/faire-un-signalement?gtin=3023470020016&utm_source=openfoodfacts&utm_campaign=product_page_panel",
+                        "url": "https://static.openfoodfacts.org/images/panels/report_problem/signalconso-button.png"
+                    }
+                }
+            ],
+            "evaluation": "neutral",
+            "expand_for": "large",
+            "level": "info",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/panels/report_problem/signalconso.png",
+                "subtitle": "Etiquetage non conforme, vente d'un produit p\u00e9rim\u00e9, pr\u00e9sence d'un corps \u00e9tranger, etc.",
+                "title": "Faire un signalement sur SignalConso"
+            },
+            "topics": [
+                "problem"
+            ]
+        },
+        "health_card": {
+            "elements": [
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "image": {
+                            "alt": "Roudor - Tableau nutritionnel",
+                            "id": "nutrition_fr",
+                            "lc": "fr",
+                            "sizes": {
+                                "100": {
+                                    "height": 65,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/nutrition_fr.153.100.jpg",
+                                    "width": 100
+                                },
+                                "200": {
+                                    "height": 130,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/nutrition_fr.153.200.jpg",
+                                    "width": 200
+                                },
+                                "400": {
+                                    "height": 259,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/nutrition_fr.153.400.jpg",
+                                    "width": 400
+                                },
+                                "full": {
+                                    "height": 1678,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/nutrition_fr.153.full.jpg",
+                                    "width": 2587
+                                }
+                            },
+                            "type": "nutrition"
+                        },
+                        "panel_group_id": "nutrition",
+                        "panel_ids": [
+                            "nutriscore_2023",
+                            "nutrient_levels"
+                        ],
+                        "title": "Nutrition",
+                        "type": "subcard"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "nutrition_facts_table",
+                            "serving_size"
+                        ],
+                        "title": ""
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "image": {
+                            "alt": "Roudor - Ingr\u00e9dients",
+                            "id": "ingredients_fr",
+                            "lc": "fr",
+                            "sizes": {
+                                "100": {
+                                    "height": 29,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/ingredients_fr.150.100.jpg",
+                                    "width": 100
+                                },
+                                "200": {
+                                    "height": 57,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/ingredients_fr.150.200.jpg",
+                                    "width": 200
+                                },
+                                "400": {
+                                    "height": 114,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/ingredients_fr.150.400.jpg",
+                                    "width": 400
+                                },
+                                "full": {
+                                    "height": 669,
+                                    "url": "https://images.openfoodfacts.org/images/products/302/347/002/0016/ingredients_fr.150.full.jpg",
+                                    "width": 2338
+                                }
+                            },
+                            "type": "ingredients"
+                        },
+                        "panel_group_id": "ingredients",
+                        "panel_ids": [
+                            "ingredients"
+                        ],
+                        "title": "Ingr\u00e9dients",
+                        "type": "subcard"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "nova"
+                        ],
+                        "title": "Transformation des aliments"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "additives"
+                        ],
+                        "title": "Additifs"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_ids": [
+                            "ingredients_analysis",
+                            "ingredients_analysis_details"
+                        ],
+                        "title": "Analyse des ingr\u00e9dients"
+                    }
+                }
+            ],
+            "expanded": true,
+            "title_element": {
+                "title": "Sant\u00e9"
+            },
+            "topics": [
+                "health"
+            ],
+            "type": "card"
+        },
+        "incomplete_or_incorrect_data": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                Si les informations ne correspondent pas \u00e0 celles figurant sur l'emballage, vous pouvez les compl\u00e9ter ou les corriger. Merci !\n                Open Food Facts est une base de donn\u00e9es collaborative, et chaque contribution est utile pour tous.\n                "
+                    }
+                },
+                {
+                    "action_element": {
+                        "actions": [
+                            "edit_product"
+                        ],
+                        "html": ""
+                    },
+                    "element_type": "action"
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                Si vous souhaitez signaler un acte de vandalisme, un contenu inappropri\u00e9 ou des donn\u00e9es erron\u00e9es que vous ne pouvez pas corriger vous-m\u00eame, signalez-le \u00e0 notre \u00e9quipe de mod\u00e9rateurs.\n                "
+                    }
+                },
+                {
+                    "action_element": {
+                        "actions": [
+                            "report_product_to_nutripatrol"
+                        ],
+                        "html": ""
+                    },
+                    "element_type": "action"
+                }
+            ],
+            "evaluation": "neutral",
+            "expand_for": "large",
+            "level": "info",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/logos/off-logo-icon-light.svg",
+                "subtitle": "Cat\u00e9gorie, \u00e9tiquettes, ingr\u00e9dients, allerg\u00e8nes, informations nutritionnelles, photos etc.",
+                "title": "Informations incompl\u00e8tes ou incorrectes ?"
+            },
+            "topics": [
+                "problem"
+            ]
+        },
+        "ingredient_1": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "Farine de bl\u00e9 : 52.0%"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_10": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "Tenir-au-sec : < 2% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_11": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "A-l-abri-de-la-chaleur-et-de-la-lumiere : < 2% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_2": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "Beurre : 30.0%"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_3": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "Sucre : 10.2% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_4": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "\u0152uf : 3.9% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_5": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "Sel : < 2% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_6": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "Agent levant : < 2% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_7": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "\u2014 E503 : < 2% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_8": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "E500 : < 2% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredient_9": {
+            "elements": [],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "title": "E330 : < 2% (estimation)"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredients": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "edit_field_id": "ingredients_text_fr",
+                        "edit_field_type": "ingredients_text",
+                        "edit_field_value": "Farine de bl\u00e9 52%, beurre 30%, sucre, \u0153ufs, sel, poudres \u00e0 lever: carbonates d'ammonium et de sodium et acide citrique. Traces \u00e9ventuelles de fruits \u00e0 coque, graines de s\u00e9same, soja. Tenir au sec, \u00e0 l'abri de la chaleur et de la lumi\u00e8re.",
+                        "html": "Farine de <span class=\"allergen\">bl\u00e9</span> 52%, <span class=\"allergen\">beurre</span> 30%, sucre, <span class=\"allergen\">\u0153ufs</span>, sel, poudres \u00e0 lever: carbonates d'ammonium et de sodium et acide citrique. Traces \u00e9ventuelles de <span class=\"allergen\">fruits \u00e0 coque</span>, graines de <span class=\"allergen\">s\u00e9same</span>, <span class=\"allergen\">soja</span>. Tenir au sec, \u00e0 l'abri de la chaleur et de la lumi\u00e8re.",
+                        "language": "Fran\u00e7ais",
+                        "lc": "fr"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<strong>Allerg\u00e8nes\u00a0:</strong> \n                    \u0152ufs, Gluten, Lait\n                "
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<strong>Traces\u00a0:</strong> \n                    Fruits \u00e0 coque, Graines de s\u00e9same, Soja, en:en-en-nuts-en-sesame-seeds-en-en-en-en-en-nuts-en-sesame-seeds-en-soybeans\n                "
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredients_list"
+                    }
+                }
+            ],
+            "evaluation": "unknown",
+            "expand_for": "large",
+            "expanded": false,
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/ingredients.svg",
+                "title": "11 ingr\u00e9dients"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredients_analysis": {
+            "elements": [
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredients_analysis_en:palm-oil-free"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredients_analysis_en:non-vegan"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredients_analysis_en:vegetarian-status-unknown"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "L'analyse est bas\u00e9e uniquement sur les ingr\u00e9dients list\u00e9s et ne prend pas en compte les m\u00e9thodes de fabrication."
+                    }
+                }
+            ],
+            "expanded": true,
+            "level": "info",
+            "topics": [
+                "health"
+            ],
+            "type": "inline"
+        },
+        "ingredients_analysis_details": {
+            "elements": [
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredients_analysis_help"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "fr: <span>Farine de bl\u00e9</span> 52%, <span>beurre</span> 30%, <span>sucre</span>, <span>\u0153ufs</span>, <span>sel</span>, <span>poudres \u00e0 lever</span> (<span>carbonates d'ammonium</span>), <span>carbonates de sodium</span>, <span>acide citrique</span>, <span class=\"text_info unknown_ingredient\">Tenir au sec</span>, <span class=\"text_info unknown_ingredient\">\u00e0 l'abri de la chaleur et de la lumi\u00e8re</span>"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<ol id=\"ordered_ingredients_list\">\n<li><span>Farine de bl\u00e9</span> -> en:wheat-flour - vegan:&nbsp;yes - vegetarian:&nbsp;yes - ciqual_proxy_food_code:&nbsp;9410 - percent_min:&nbsp;52 - percent:&nbsp;52 - percent_max:&nbsp;52</li>\n<li><span>beurre</span> -> en:butter - vegan:&nbsp;no - vegetarian:&nbsp;yes - ciqual_proxy_food_code:&nbsp;16400 - percent_min:&nbsp;30 - percent:&nbsp;30 - percent_max:&nbsp;30</li>\n<li><span>sucre</span> -> en:sugar - vegan:&nbsp;yes - vegetarian:&nbsp;yes - ciqual_proxy_food_code:&nbsp;31016 - percent_min:&nbsp;2.4 - percent_max:&nbsp;18</li>\n<li><span>\u0153ufs</span> -> en:egg - vegan:&nbsp;no - vegetarian:&nbsp;yes - ciqual_food_code:&nbsp;22000 - percent_min:&nbsp;0 - percent_max:&nbsp;9</li>\n<li><span>sel</span> -> en:salt - vegan:&nbsp;yes - vegetarian:&nbsp;yes - ciqual_food_code:&nbsp;11058 - percent_min:&nbsp;0 - percent_max:&nbsp;1.1</li>\n<li><span>poudres \u00e0 lever</span> -> en:raising-agent - percent_min:&nbsp;0 - percent_max:&nbsp;1.1<ol id=\"ordered_ingredients_list\">\n<li><span>carbonates d'ammonium</span> -> en:e503 - vegan:&nbsp;yes - vegetarian:&nbsp;yes - percent_min:&nbsp;0 - percent_max:&nbsp;1.1</li>\n</ol>\n</li>\n<li><span>carbonates de sodium</span> -> en:e500 - vegan:&nbsp;yes - vegetarian:&nbsp;yes - percent_min:&nbsp;0 - percent_max:&nbsp;1.1</li>\n<li><span>acide citrique</span> -> en:e330 - vegan:&nbsp;yes - vegetarian:&nbsp;yes - percent_min:&nbsp;0 - percent_max:&nbsp;1.1</li>\n<li><span class=\"text_info unknown_ingredient\">Tenir au sec</span> -> fr:tenir-au-sec - percent_min:&nbsp;0 - percent_max:&nbsp;1.1</li>\n<li><span class=\"text_info unknown_ingredient\">\u00e0 l'abri de la chaleur et de la lumi\u00e8re</span> -> fr:a-l-abri-de-la-chaleur-et-de-la-lumiere - percent_min:&nbsp;0 - percent_max:&nbsp;1.1</li>\n</ol>\n"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": ""
+                    }
+                }
+            ],
+            "evaluation": "average",
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/off-magnifying-glass.svg",
+                "subtitle": "Nous avons besoin de votre aide !",
+                "title": "D\u00e9tail de l'analyse des ingr\u00e9dients"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredients_analysis_en:non-vegan": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                \n                    <strong>Ingr\u00e9dients non v\u00e9g\u00e9taliens\u00a0:</strong>\n                    Beurre, \u0152uf\n                \n                    ",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredients_analysis_help"
+                    }
+                }
+            ],
+            "evaluation": "bad",
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/leaf.svg",
+                "title": "Non v\u00e9g\u00e9talien"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredients_analysis_en:palm-oil-free": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                \n                    Aucun ingr\u00e9dient contenant de l'huile de palme d\u00e9tect\u00e9\n                    \n                        <br><br>\n                        Ingr\u00e9dients non reconnus\u00a0:\n                        Tenir-au-sec, A-l-abri-de-la-chaleur-et-de-la-lumiere\n                    \n                \n                    ",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredients_analysis_help"
+                    }
+                }
+            ],
+            "evaluation": "good",
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/palm-oil.svg",
+                "title": "Sans huile de palme"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredients_analysis_en:vegetarian-status-unknown": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                \n                    <strong>Ingr\u00e9dients non reconnus\u00a0:</strong>\n                    Tenir-au-sec, A-l-abri-de-la-chaleur-et-de-la-lumiere\n                \n                    ",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredients_analysis_help"
+                    }
+                }
+            ],
+            "evaluation": "unknown",
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/vegetarian.svg",
+                "title": "Caract\u00e8re v\u00e9g\u00e9tarien inconnu"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "ingredients_analysis_help": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<p class=\"text_info\">Certains ingr\u00e9dients n'ont pas \u00e9t\u00e9 identifi\u00e9s.</p>"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                <h3>Nous avons besoin de votre aide !</h3>\n                <p>Vous pouvez nous aider \u00e0 reconna\u00eetre d'autres ingr\u00e9dients et \u00e0 mieux analyser la liste des ingr\u00e9dients pour ce produit et d'autres en :</p>\n                <ul>\n                    <li>Modifiez la page de ce produit pour corriger les fautes d'orthographe dans la liste des ingr\u00e9dients, pour supprimer des ingr\u00e9dients dans d'autres langues ou pour supprimer des phrases qui ne correspondent pas aux ingr\u00e9dients.</li>\n                    <li>Ajoutez de nouvelles entr\u00e9es, synonymes ou traductions \u00e0 nos listes multilingues d'ingr\u00e9dients, de m\u00e9thodes de traitement des ingr\u00e9dients, et de labels.</li>\n                </ul>\n                <p>Rejoignez le canal #ingredients dans <a href=\"https://slack.openfoodfacts.org\">notre espace de discussion Slack</a> et apprenez-en plus sur <a href=\"https://wiki.openfoodfacts.org/Ingredients_Extraction_and_Analysis\">l'analyse des ingr\u00e9dients sur notre wiki</a>, si vous d\u00e9sirez nous aider. Merci !</p>                \n                ",
+                        "type": "callout_info"
+                    }
+                }
+            ],
+            "expanded": true,
+            "level": "info",
+            "topics": [
+                "health"
+            ],
+            "type": "inline"
+        },
+        "ingredients_list": {
+            "elements": [
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_1"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_2"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_3"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_4"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_5"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_6"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_7"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_8"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_9"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_10"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "ingredient_11"
+                    }
+                }
+            ],
+            "expanded": true,
+            "level": "info",
+            "title_element": {
+                "title": "Information sur les ingr\u00e9dients"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nova": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n\n    \n        \n            <p>\u00c9l\u00e9ments qui indiquent que le produit est dans le groupe 3 - Aliments transform\u00e9s\u00a0:</p>\n            <ul>\n            \n                <li>Ingr\u00e9dient\u00a0: Beurre</li>\n            \n                <li>Ingr\u00e9dient\u00a0: Sel</li>\n            \n                <li>Ingr\u00e9dient\u00a0: Sucre</li>\n            \n                <li>Cat\u00e9gorie\u00a0: Snacks sucr\u00e9s</li>\n            \n            </ul>\n        \n    \n\n"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>Les produits alimentaires sont class\u00e9s en 4 groupes selon leur degr\u00e9 de transformation :</p>\n<ol>\n<li>Aliments non transform\u00e9s ou minimalement transform\u00e9s</li>\n<li>Ingr\u00e9dients culinaires transform\u00e9s</li>\n<li>Aliments transform\u00e9s</li>\n<li>Aliments ultra-transform\u00e9s</li>\n</ol>\n<br>\n<p>La d\u00e9termination du groupe est bas\u00e9e sur la cat\u00e9gorie du produit et sur les ingr\u00e9dients qu'il contient.</p>\n<p>&rarr; <a href=\"https://fr.openfoodfacts.org/nova\">En savoir plus sur la classification NOVA</a></p>\n"
+                    }
+                }
+            ],
+            "level": "info",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/nova-group-3.svg",
+                "title": "Aliments transform\u00e9s"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutrient_level_fat": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<b>Ce que vous devez savoir</b>\n<ul>\n<li>Une consommation \u00e9lev\u00e9e de mati\u00e8res grasses, en particulier d'acides gras satur\u00e9s, peut augmenter le cholest\u00e9rol, ce qui augmente le risque de maladies cardiaques.</li>\n</ul>\n<br>\n<b>Recommandation</b>\u00a0:\n<b>R\u00e9duire la consommation de mati\u00e8res grasses et d'acides gras satur\u00e9s</b>\n<ul>\n<li>Choisissez des produits \u00e0 faible teneur en mati\u00e8res grasses et acides gras satur\u00e9s.</li>\n</ul>\n",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n",
+                        "source_language": "en",
+                        "source_text": "National Health Service UK (NHS) - Fat: the facts",
+                        "source_url": "https://www.nhs.uk/live-well/eat-well/food-types/different-fats-nutrition/",
+                        "type": "summary"
+                    }
+                }
+            ],
+            "evaluation": "bad",
+            "half_width_on_mobile": true,
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/misc/high.svg",
+                "name": "Mati\u00e8res grasses",
+                "title": "Mati\u00e8res grasses en quantit\u00e9 \u00e9lev\u00e9e (26%)",
+                "type": "percentage",
+                "value": 26
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutrient_level_salt": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<b>Ce que vous devez savoir</b>\n<ul>\n<li>Une forte consommation de sel (ou de sodium) peut entra\u00eener une augmentation de la pression art\u00e9rielle, ce qui peut augmenter le risque de maladie cardiaque et d'accident vasculaire c\u00e9r\u00e9bral.</li>\n<li>De nombreuses personnes souffrant d'hypertension ne le savent pas, car il n'y a souvent aucun sympt\u00f4me.</li>\n<li>La plupart des gens consomment trop de sel (en moyenne 9 \u00e0 12 grammes par jour), soit environ le double de l'apport maximal recommand\u00e9.</li>\n</ul>\n<br>\n<b>Recommandation</b>\u00a0:\n<b>Limiter la consommation de sel et d'aliments sal\u00e9s</b>\n<ul>\n<li>R\u00e9duisez la quantit\u00e9 de sel utilis\u00e9e lors de la cuisson et ne salez plus \u00e0 table.</li>\n<li>Limitez la consommation de collations sal\u00e9es et choisissez des produits \u00e0 faible teneur en sel.</li>\n</ul>\n",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n",
+                        "source_language": "en",
+                        "source_text": "World Health Organization (WHO) - Fact sheet - Salt reduction",
+                        "source_url": "https://www.who.int/news-room/fact-sheets/detail/salt-reduction",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n",
+                        "source_language": "en",
+                        "source_text": "National Health Service UK (NHS) - Salt: the facts",
+                        "source_url": "https://www.nhs.uk/live-well/eat-well/food-types/salt-nutrition/",
+                        "type": "summary"
+                    }
+                }
+            ],
+            "evaluation": "average",
+            "half_width_on_mobile": true,
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/misc/moderate.svg",
+                "name": "Sel",
+                "title": "Sel en quantit\u00e9 mod\u00e9r\u00e9e (1.1%)",
+                "type": "percentage",
+                "value": 1.1
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutrient_level_saturated-fat": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<b>Ce que vous devez savoir</b>\n<ul>\n<li>Une consommation \u00e9lev\u00e9e de mati\u00e8res grasses, en particulier d'acides gras satur\u00e9s, peut augmenter le cholest\u00e9rol, ce qui augmente le risque de maladies cardiaques.</li>\n</ul>\n<br>\n<b>Recommandation</b>\u00a0:\n<b>R\u00e9duire la consommation de mati\u00e8res grasses et d'acides gras satur\u00e9s</b>\n<ul>\n<li>Choisissez des produits \u00e0 faible teneur en mati\u00e8res grasses et acides gras satur\u00e9s.</li>\n</ul>\n",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n",
+                        "source_language": "en",
+                        "source_text": "National Health Service UK (NHS) - Fat: the facts",
+                        "source_url": "https://www.nhs.uk/live-well/eat-well/food-types/different-fats-nutrition/",
+                        "type": "summary"
+                    }
+                }
+            ],
+            "evaluation": "bad",
+            "half_width_on_mobile": true,
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/misc/high.svg",
+                "name": "Acides gras satur\u00e9s",
+                "title": "Acides gras satur\u00e9s en quantit\u00e9 \u00e9lev\u00e9e (17%)",
+                "type": "percentage",
+                "value": 17
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutrient_level_sugars": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<b>Ce que vous devez savoir</b>\n<ul>\n<li>Une forte consommation de sucre peut entra\u00eener une prise de poids et des caries dentaires. Il augmente \u00e9galement le risque de diab\u00e8te de type 2 et de maladies cardio-vasculaires.</li>\n</ul>\n<br>\n<b>Recommandation</b>\u00a0:\n<b>Limiter la consommation de sucre et de boissons sucr\u00e9es</b>\n<ul>\n<li>Les boissons sucr\u00e9es (comme les sodas, les boissons aux fruits, les jus et nectars de fruits) doivent \u00eatre limit\u00e9es au maximum (pas plus d'un verre par jour).</li>\n<li>Choisissez des produits \u00e0 faible teneur en sucre et r\u00e9duisez la consommation de produits avec des sucres ajout\u00e9s.</li>\n</ul>\n",
+                        "type": "summary"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n",
+                        "source_language": "en",
+                        "source_text": "National Health Service UK (NHS) - Sugar: the facts",
+                        "source_url": "https://www.nhs.uk/live-well/eat-well/food-types/how-does-sugar-in-our-diet-affect-our-health/",
+                        "type": "summary"
+                    }
+                }
+            ],
+            "evaluation": "bad",
+            "half_width_on_mobile": true,
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/misc/high.svg",
+                "name": "Sucres",
+                "title": "Sucres en quantit\u00e9 \u00e9lev\u00e9e (26%)",
+                "type": "percentage",
+                "value": 26
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutrient_levels": {
+            "elements": [
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "panel_group_id": "nutrient_levels_group",
+                        "panel_ids": [
+                            "nutrient_level_fat",
+                            "nutrient_level_saturated-fat",
+                            "nutrient_level_sugars",
+                            "nutrient_level_salt"
+                        ]
+                    }
+                }
+            ],
+            "evaluation": "unknown",
+            "expand_for": "large",
+            "expanded": false,
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/nutrition.svg",
+                "title": "Rep\u00e8res nutritionnels"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_2023": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "Avertissement : Le taux de fruits, l\u00e9gumes et noix n'est pas indiqu\u00e9 sur l'\u00e9tiquette, il a \u00e9t\u00e9 estim\u00e9 en fonction de la liste des ingr\u00e9dients : 0\n                    ",
+                        "type": "warning"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "nutriscore_new_computation"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "nutriscore_description"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "evaluation": "bad",
+                        "icon_color_from_evaluation": true,
+                        "icon_size": "small",
+                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/circle-minus.svg",
+                        "panel_ids": [
+                            "nutriscore_component_energy",
+                            "nutriscore_component_sugars",
+                            "nutriscore_component_saturated_fat",
+                            "nutriscore_component_salt"
+                        ],
+                        "title": "Points n\u00e9gatifs\u00a0: 28/55"
+                    }
+                },
+                {
+                    "element_type": "panel_group",
+                    "panel_group_element": {
+                        "evaluation": "good",
+                        "icon_color_from_evaluation": true,
+                        "icon_size": "small",
+                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/circle-plus.svg",
+                        "panel_ids": [
+                            "nutriscore_component_fiber",
+                            "nutriscore_component_fruits_vegetables_legumes"
+                        ],
+                        "title": "Points positifs\u00a0: 0/10"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "nutriscore_details"
+                    }
+                }
+            ],
+            "level": "info",
+            "title_element": {
+                "grade": "e",
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-e-new-fr.svg",
+                "subtitle": "Moins bonne qualit\u00e9 nutritionnelle",
+                "title": "Nutri-Score E",
+                "type": "grade"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_component_energy": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>\n    \n    Les apports \u00e9nerg\u00e9tiques sup\u00e9rieurs aux besoins \u00e9nerg\u00e9tiques sont associ\u00e9s \u00e0 des risques accrus de prise de poids, de surpoids, d'ob\u00e9sit\u00e9 et, par cons\u00e9quent, \u00e0 un risque de maladies chroniques li\u00e9es \u00e0 l'alimentation.\n</p>\n                "
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/points-negative-6-10.svg",
+                "subtitle": "6/10 points (2154kJ)",
+                "title": "\u00c9nergie"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_component_fiber": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>\n    Consommer des aliments riches en fibres (notamment les aliments \u00e0 grains entiers) r\u00e9duit les risques de cancers a\u00e9rodigestifs, de maladies cardiovasculaires, d\u2019ob\u00e9sit\u00e9 et de diab\u00e8te.\n    \n</p>\n                "
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/points-positive-0-5.svg",
+                "subtitle": "0/5 points (2g)",
+                "title": "Fibre"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_component_fruits_vegetables_legumes": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>\n    Consommer des aliments riches en fruits, l\u00e9gumes et l\u00e9gumes secs r\u00e9duit les risques de cancers a\u00e9rodigestifs, de maladies cardiovasculaires, d\u2019ob\u00e9sit\u00e9 et de diab\u00e8te.\n    \n</p>\n                "
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/points-positive-0-5.svg",
+                "subtitle": "0/5 points (0%)",
+                "title": "Fruits, l\u00e9gumes et l\u00e9gumes secs"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_component_salt": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>\n    \n    Une forte consommation de sel (ou de sodium) peut entra\u00eener une augmentation de la pression art\u00e9rielle, ce qui peut augmenter le risque de maladie cardiaque et d'accident vasculaire c\u00e9r\u00e9bral.\n</p>\n                "
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/points-negative-5-20.svg",
+                "subtitle": "5/20 points (1.1g)",
+                "title": "Sel"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_component_saturated_fat": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>\n    \n    Une consommation \u00e9lev\u00e9e de mati\u00e8res grasses, en particulier d'acides gras satur\u00e9s, peut augmenter le cholest\u00e9rol, ce qui augmente le risque de maladies cardiaques.\n</p>\n                "
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/points-negative-10-10.svg",
+                "subtitle": "10/10 points (17g)",
+                "title": "Acides gras satur\u00e9s"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_component_sugars": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>\n    \n    Une forte consommation de sucre peut entra\u00eener une prise de poids et des caries dentaires. Il augmente \u00e9galement le risque de diab\u00e8te de type 2 et de maladies cardio-vasculaires.\n</p>\n                "
+                    }
+                }
+            ],
+            "level": "info",
+            "size": "small",
+            "title_element": {
+                "icon_url": "https://static.openfoodfacts.org/images/attributes/dist/points-negative-7-15.svg",
+                "subtitle": "7/15 points (26g)",
+                "title": "Sucres"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_description": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<p>Le Nutri-Score est un logo sur la qualit\u00e9 nutritionnelle globale des produits.</p>\n<p>\nLe score de A \u00e0 E est calcul\u00e9 en fonction des nutriments et aliments \u00e0 favoriser (prot\u00e9ines, fibres, fruits et l\u00e9gumes, l\u00e9gumes secs\u2026) et des nutriments \u00e0 limiter (calories, acides gras satur\u00e9s, sucres, sel).\nLe score est calcul\u00e9 \u00e0 partir des donn\u00e9es du tableau de la d\u00e9claration nutritionnelle et des donn\u00e9es de composition (fruits, l\u00e9gumes et l\u00e9gumes secs).\n</p>\n\n    <p>L'affichage de ce logo est recommand\u00e9 par les pouvoirs publics sans obligation pour les entreprises.</p>\n\n                ",
+                        "type": "info"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>&rarr; <a href=\"https://fr.openfoodfacts.org/nutriscore\">En savoir plus sur le Nutri-Score</a></p>\n"
+                    }
+                }
+            ],
+            "level": "info",
+            "title_element": {
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/info.svg",
+                "title": "Qu'est ce que le Nutri-Score ?",
+                "type": "info"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_details": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "Avertissement : Le taux de fruits, l\u00e9gumes et noix n'est pas indiqu\u00e9 sur l'\u00e9tiquette, il a \u00e9t\u00e9 estim\u00e9 en fonction de la liste des ingr\u00e9dients : 0\n                    ",
+                        "type": "warning"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n\n    <p>Ce produit n'est pas consid\u00e9r\u00e9 comme une boisson pour le calcul du Nutri-Score.</p>\n\n\n\n\n\n<p>Les points pour les prot\u00e9ines ne sont pas compt\u00e9s car les points n\u00e9gatifs sont sup\u00e9rieurs ou \u00e9gaux \u00e0 11.</p>\n\n<p>\n  <strong>Score nutritionnel\u00a0: 28</strong>\n  (28 - 0)\n</p>\n<p><strong>Nutri-Score\u00a0: E</strong></p>                \n                "
+                    }
+                }
+            ],
+            "level": "info",
+            "title_element": {
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/info.svg",
+                "title": "D\u00e9tail du calcul du Nutri-Score",
+                "type": "info"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutriscore_new_computation": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "<p>Le calcul du Nutri-Score \u00e9volue pour fournir de meilleures recommandations bas\u00e9es sur les derni\u00e8res preuves scientifiques.</p><p>Principales am\u00e9liorations :</p><ul><li>Meilleur score pour certains poissons gras et huiles riches en bonnes graisses</li><li>Meilleur score pour les produits complets riches en fibres</li><li>Moins bon score pour les produits contenant beaucoup de sel ou de sucre</li><li>Moins bon score pour la viande rouge (compar\u00e9e \u00e0 la volaille)</li></ul>\n                ",
+                        "type": "info"
+                    }
+                },
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n<p>&rarr; <a href=\"https://fr.openfoodfacts.org/nutriscore-v2\">D\u00e9couvrez toutes les am\u00e9liorations du nouveau Nutri-Score</a></p>\n"
+                    }
+                }
+            ],
+            "level": "info",
+            "title_element": {
+                "icon_size": "small",
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/info.svg",
+                "title": "D\u00e9couvrez le nouveau Nutri-Score !",
+                "type": "info"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "nutrition_facts_table": {
+            "elements": [
+                {
+                    "element_type": "table",
+                    "table_element": {
+                        "columns": [
+                            {
+                                "style": "max-width:15rem",
+                                "text": "Tableau nutritionnel",
+                                "type": "text"
+                            },
+                            {
+                                "column_group_id": "product",
+                                "shown_by_default": true,
+                                "text": "Tel que vendu<br>pour 100 g / 100 ml",
+                                "text_for_small_screens": "100g",
+                                "type": "text"
+                            },
+                            {
+                                "column_group_id": "product",
+                                "shown_by_default": false,
+                                "text": "Tel que vendu<br>par portion (12.5 g)",
+                                "text_for_small_screens": "par portion",
+                                "type": "text"
+                            },
+                            {
+                                "column_group_id": "comparisons",
+                                "shown_by_default": true,
+                                "text": "Compar\u00e9 \u00e0: Palets",
+                                "type": "text"
+                            }
+                        ],
+                        "id": "nutrition_facts_table",
+                        "rows": [
+                            {
+                                "values": [
+                                    {
+                                        "level": 0,
+                                        "style": "max-width:15rem",
+                                        "text": "\u00c9nergie"
+                                    },
+                                    {
+                                        "text": "2\u00a0154 kj<br>(515 kcal)"
+                                    },
+                                    {
+                                        "text": "269 kj<br>(64 kcal)"
+                                    },
+                                    {
+                                        "text": "+4\u00a0%"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "level": 0,
+                                        "style": "max-width:15rem",
+                                        "text": "Mati\u00e8res grasses"
+                                    },
+                                    {
+                                        "text": "26 g"
+                                    },
+                                    {
+                                        "text": "3,25 g"
+                                    },
+                                    {
+                                        "text": "+4\u00a0%"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "level": 1,
+                                        "style": "max-width:15rem",
+                                        "text": "Acides gras satur\u00e9s"
+                                    },
+                                    {
+                                        "text": "17 g"
+                                    },
+                                    {
+                                        "text": "2,12 g"
+                                    },
+                                    {
+                                        "text": "+5\u00a0%"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "level": 0,
+                                        "style": "max-width:15rem",
+                                        "text": "Glucides"
+                                    },
+                                    {
+                                        "text": "63 g"
+                                    },
+                                    {
+                                        "text": "7,88 g"
+                                    },
+                                    {
+                                        "text": "+5\u00a0%"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "level": 1,
+                                        "style": "max-width:15rem",
+                                        "text": "Sucres"
+                                    },
+                                    {
+                                        "text": "26 g"
+                                    },
+                                    {
+                                        "text": "3,25 g"
+                                    },
+                                    {
+                                        "text": "-0\u00a0%"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "level": 0,
+                                        "style": "max-width:15rem",
+                                        "text": "Fibres alimentaires"
+                                    },
+                                    {
+                                        "text": "2 g"
+                                    },
+                                    {
+                                        "text": "0,25 g"
+                                    },
+                                    {
+                                        "evaluation": "good",
+                                        "text": "+30\u00a0%"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "level": 0,
+                                        "style": "max-width:15rem",
+                                        "text": "Prot\u00e9ines"
+                                    },
+                                    {
+                                        "text": "6,2 g"
+                                    },
+                                    {
+                                        "text": "0,775 g"
+                                    },
+                                    {
+                                        "text": "+2\u00a0%"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "level": 0,
+                                        "style": "max-width:15rem",
+                                        "text": "Sel"
+                                    },
+                                    {
+                                        "text": "1,1 g"
+                                    },
+                                    {
+                                        "text": "0,138 g"
+                                    },
+                                    {
+                                        "evaluation": "bad",
+                                        "text": "+28\u00a0%"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "level": 0,
+                                        "style": "max-width:15rem",
+                                        "text": "Fruits\u201a l\u00e9gumes\u201a noix et huiles de colza\u201a noix et olive (estimation par analyse de la liste des ingr\u00e9dients)"
+                                    },
+                                    {
+                                        "text": "0 %"
+                                    },
+                                    {
+                                        "text": "0 %"
+                                    },
+                                    {
+                                        "text": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "title": "Tableau nutritionnel"
+                    }
+                }
+            ],
+            "evaluation": "unknown",
+            "expand_for": "large",
+            "expanded": false,
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/scale-balance.svg",
+                "title": "Tableau nutritionnel"
+            },
+            "topics": [
+                "health"
+            ]
+        },
+        "origins_of_ingredients": {
+            "elements": [
+                {
+                    "element_type": "table",
+                    "table_element": {
+                        "columns": [
+                            {
+                                "text": "Origine du produit et/ou de ses ingr\u00e9dients",
+                                "type": "text"
+                            },
+                            {
+                                "text": "% d'ingr\u00e9dients",
+                                "type": "percent"
+                            },
+                            {
+                                "text": "Impact",
+                                "type": "text"
+                            }
+                        ],
+                        "id": "environmental_score_origins_of_ingredients_table",
+                        "rows": [
+                            {
+                                "values": [
+                                    {
+                                        "text": "France"
+                                    },
+                                    {
+                                        "evaluation": "good",
+                                        "percent": 100,
+                                        "text": "100 %"
+                                    },
+                                    {
+                                        "evaluation": "good",
+                                        "text": "Faible"
+                                    }
+                                ]
+                            }
+                        ],
+                        "table_type": "percents",
+                        "title": "Origines des ingr\u00e9dients"
+                    }
+                }
+            ],
+            "evaluation": "good",
+            "expanded": false,
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/public.svg",
+                "subtitle": "Origines des ingr\u00e9dients ayant un faible impact",
+                "title": "Origines des ingr\u00e9dients"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "packaging_components": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "evaluation": "good",
+                        "html": "\n                        \n                            \n                                3 x \n                                <strong>\n                                    Sachet\n                                    \n                                </strong>\n                                    \n                                        (Plastique\u00a0: 0.87 g)\n                                    \n                                    \n                                    <br>\n                            \n                        \n                            \n                                1 x \n                                <strong>\n                                    \u00c9tui\n                                    150g \n                                </strong>\n                                    \n                                        (Carton\u00a0: 30 g)\n                                    \n                                    \n                                    <br>\n                            \n                        \n                        ",
+                        "icon_alt": "Recycler",
+                        "icon_color_from_evaluation": true,
+                        "icon_url": "https://static.openfoodfacts.org/images/icons/dist/recycle-variant.svg",
+                        "type": "summary"
+                    }
+                }
+            ],
+            "expanded": true,
+            "level": "info",
+            "title_element": {
+                "title": "Elements d'emballage"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "packaging_materials": {
+            "elements": [
+                {
+                    "element_type": "table",
+                    "table_element": {
+                        "columns": [
+                            {
+                                "text": "Mati\u00e8re",
+                                "type": "text"
+                            },
+                            {
+                                "text": "%",
+                                "type": "text"
+                            },
+                            {
+                                "text": "Poids de l'emballage",
+                                "type": "text"
+                            },
+                            {
+                                "text": "Poids de l'emballage pour 100 g de produit",
+                                "type": "text"
+                            }
+                        ],
+                        "id": "packaging_materials",
+                        "rows": [
+                            {
+                                "values": [
+                                    {
+                                        "text": "Papier ou carton"
+                                    },
+                                    {
+                                        "text": "92%"
+                                    },
+                                    {
+                                        "text": "30 g"
+                                    },
+                                    {
+                                        "text": "20 g"
+                                    }
+                                ]
+                            },
+                            {
+                                "values": [
+                                    {
+                                        "text": "Plastique"
+                                    },
+                                    {
+                                        "text": "8%"
+                                    },
+                                    {
+                                        "text": "2.61 g"
+                                    },
+                                    {
+                                        "text": "1.7 g"
+                                    }
+                                ]
+                            },
+                            {
+                                "style": "font-weight: bold",
+                                "values": [
+                                    {
+                                        "text": "Total"
+                                    },
+                                    {
+                                        "text": "100%"
+                                    },
+                                    {
+                                        "text": "32.61 g"
+                                    },
+                                    {
+                                        "text": "21.7 g"
+                                    }
+                                ]
+                            }
+                        ],
+                        "title": "Mat\u00e9riaux d'emballage"
+                    }
+                }
+            ],
+            "expanded": true,
+            "level": "info",
+            "title_element": {
+                "title": "Mat\u00e9riaux d'emballage"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "packaging_recycling": {
+            "elements": [
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "packaging_components"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "packaging_materials"
+                    }
+                }
+            ],
+            "evaluation": "average",
+            "expanded": true,
+            "level": "info",
+            "title_element": {
+                "icon_color_from_evaluation": true,
+                "icon_url": "https://static.openfoodfacts.org/images/icons/dist/packaging.svg",
+                "title": "Emballage \u00e0 impact moyen"
+            },
+            "topics": [
+                "environment"
+            ]
+        },
+        "report_problem_card": {
+            "elements": [
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "incomplete_or_incorrect_data"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "fr_report_product_signalconso"
+                    }
+                }
+            ],
+            "expanded": true,
+            "title_element": {
+                "title": "Signaler un probl\u00e8me"
+            },
+            "topics": [
+                "problems"
+            ],
+            "type": "card"
+        },
+        "root": {
+            "elements": [
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "health_card"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "environment_card"
+                    }
+                },
+                {
+                    "element_type": "panel",
+                    "panel_element": {
+                        "panel_id": "report_problem_card"
+                    }
+                }
+            ],
+            "expanded": true,
+            "type": "root"
+        },
+        "serving_size": {
+            "elements": [
+                {
+                    "element_type": "text",
+                    "text_element": {
+                        "html": "\n                    <strong>Taille d'une portion\u00a0:</strong>\n                    12.5 g\n                "
+                    }
+                }
+            ],
+            "expanded": true,
+            "level": "info",
+            "topics": [
+                "health"
+            ],
+            "type": "inline"
+        }
+    },
+    "labels": "Made in France, No palm oil, Nutriscore, Nutriscore Grade E, fr:Origine France, Oeufs de poules \u00e9lev\u00e9es en plein air, Origine France, Point Vert, Sans colorants, en:nutriscore-grade-d",
+    "labels_tags": [
+        "en:made-in-france",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-d",
+        "en:nutriscore-grade-e",
+        "fr:origine-france",
+        "en:oeufs-de-poules-elevees-en-plein-air",
+        "en:origine-france",
+        "en:point-vert",
+        "en:sans-colorants"
+    ],
+    "nutriments": {
+        "carbohydrates": 63,
+        "carbohydrates_100g": 63,
+        "carbohydrates_serving": 7.88,
+        "carbohydrates_unit": "g",
+        "carbohydrates_value": 63,
+        "carbon-footprint-from-known-ingredients_100g": 72.74,
+        "carbon-footprint-from-known-ingredients_product": 109,
+        "carbon-footprint-from-known-ingredients_serving": 9.09,
+        "energy": 2154,
+        "energy-kcal": 515,
+        "energy-kcal_100g": 515,
+        "energy-kcal_serving": 64.4,
+        "energy-kcal_unit": "kcal",
+        "energy-kcal_value": 515,
+        "energy-kcal_value_computed": 514.8,
+        "energy-kj": 2154,
+        "energy-kj_100g": 2154,
+        "energy-kj_serving": 269,
+        "energy-kj_unit": "kJ",
+        "energy-kj_value": 2154,
+        "energy-kj_value_computed": 2154.4,
+        "energy_100g": 2154,
+        "energy_serving": 269,
+        "energy_unit": "kJ",
+        "energy_value": 2154,
+        "fat": 26,
+        "fat_100g": 26,
+        "fat_serving": 3.25,
+        "fat_unit": "g",
+        "fat_value": 26,
+        "fiber": 2,
+        "fiber_100g": 2,
+        "fiber_serving": 0.25,
+        "fiber_unit": "g",
+        "fiber_value": 2,
+        "fruits-vegetables-legumes-estimate-from-ingredients_100g": 0,
+        "fruits-vegetables-legumes-estimate-from-ingredients_serving": 0,
+        "fruits-vegetables-nuts-estimate-from-ingredients_100g": 0,
+        "fruits-vegetables-nuts-estimate-from-ingredients_serving": 0,
+        "nova-group": 3,
+        "nova-group_100g": 3,
+        "nova-group_serving": 3,
+        "nutrition-score-fr": 28,
+        "nutrition-score-fr_100g": 28,
+        "proteins": 6.2,
+        "proteins_100g": 6.2,
+        "proteins_serving": 0.775,
+        "proteins_unit": "g",
+        "proteins_value": 6.2,
+        "salt": 1.1,
+        "salt_100g": 1.1,
+        "salt_serving": 0.138,
+        "salt_unit": "g",
+        "salt_value": 1.1,
+        "saturated-fat": 17,
+        "saturated-fat_100g": 17,
+        "saturated-fat_serving": 2.12,
+        "saturated-fat_unit": "g",
+        "saturated-fat_value": 17,
+        "sodium": 0.44,
+        "sodium_100g": 0.44,
+        "sodium_serving": 0.055,
+        "sodium_unit": "g",
+        "sodium_value": 0.44,
+        "sugars": 26,
+        "sugars_100g": 26,
+        "sugars_serving": 3.25,
+        "sugars_unit": "g",
+        "sugars_value": 26
+    },
+    "packaging": "Sachets plastiques",
+    "packaging_tags": [
+        "en:sachets-plastiques"
+    ],
+    "product_name": "Roudor",
+    "quantity": "150 g"
+}
