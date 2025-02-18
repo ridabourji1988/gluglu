@@ -5,7 +5,7 @@ import json
 import os
 import pandas as pd
 import requests
-import pytesseract  # OCR-based barcode reader
+import pyzxing  # ZXing barcode reader
 
 # Ensure 'items' folder exists
 if not os.path.exists("items"):
@@ -26,14 +26,21 @@ uploaded_file = col1.file_uploader("Upload an image with a barcode", type=["jpg"
 barcode_data = None
 
 def scan_barcode(image):
-    """Extract barcode text using OCR (Tesseract)"""
-    image = Image.open(image).convert("L")  # Convert to grayscale
-    barcode_text = pytesseract.image_to_string(image)
+    """Extract barcode using ZXing"""
+    reader = pyzxing.BarCodeReader()
     
-    # Extract barcode-like numeric values
-    barcode_data = "".join(filter(str.isdigit, barcode_text))
+    # Save uploaded image temporarily
+    image_path = "temp_barcode.jpg"
+    with open(image_path, "wb") as f:
+        f.write(image.read())
+
+    # Decode barcode
+    barcode = reader.decode(image_path)
     
-    return barcode_data if barcode_data else None
+    if barcode and barcode[0]['parsed']:
+        return barcode[0]['parsed']
+    
+    return None
 
 if uploaded_file:
     barcode_data = scan_barcode(uploaded_file)
