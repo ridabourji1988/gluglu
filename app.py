@@ -1,12 +1,12 @@
 import streamlit as st
 import numpy as np
 import cv2
+from pyzbar.pyzbar import decode
 from PIL import Image
 import json
 import os
 import pandas as pd
 import requests
-import pyzxing  # ZXing barcode reader
 
 # Ensure 'items' folder exists
 if not os.path.exists("items"):
@@ -31,29 +31,22 @@ def preprocess_image(image):
     image = Image.open(image).convert("L")  # Convert to grayscale
     image = np.array(image)
 
-    # Apply adaptive threshold for better contrast
+    # Increase contrast using adaptive thresholding
     image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 10)
 
-    # Rotate image if barcode is vertical
+    # Rotate if necessary
     if image.shape[0] > image.shape[1]:  # If height > width, rotate
         image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
 
     return image
 
 def scan_barcode(image):
-    """Extract barcode using ZXing"""
-    reader = pyzxing.BarCodeReader()
-    
-    # Save uploaded image temporarily
-    image_path = "temp_barcode.jpg"
+    """Extract barcode using Pyzbar"""
     processed_image = preprocess_image(image)
-    cv2.imwrite(image_path, processed_image)
+    barcodes = decode(processed_image)
 
-    # Decode barcode
-    barcode = reader.decode(image_path)
-    
-    if barcode and barcode[0]['parsed']:
-        return barcode[0]['parsed']
+    for barcode in barcodes:
+        return barcode.data.decode('utf-8')
     
     return None
 
