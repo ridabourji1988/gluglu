@@ -3,5 +3,5 @@ pillow
 numpy
 pandas
 requests
-pyzbar
+easyocr
 opencv-python-headless
