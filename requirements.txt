@@ -3,4 +3,6 @@ pillow
 numpy
 pandas
 requests
-pyzxing
+pyzbar
+opencv-python-headless
+zbarlight
