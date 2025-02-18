@@ -1,125 +1,168 @@
 import streamlit as st
 import requests
 import pandas as pd
+import json
+import os
 import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Browser Barcode Scanner", page_icon="📸", layout="wide")
+# Import your custom "barcode" module if you have it:
+import barcode  # This is the module containing "get_product_details()"
 
-st.title("📸 Browser-Based Barcode Scanner")
-st.write("""
-**No Python barcode libraries needed!**  
-This uses [html5-qrcode](https://github.com/mebjas/html5-qrcode) **in the browser** to scan barcodes from your camera.  
-Then you can **paste** the scanned code into the text box below, and we’ll look it up on OpenFoodFacts.
-""")
+# Ensure 'items' folder exists
+if not os.path.exists("items"):
+    os.makedirs("items")
 
-#########################
-# 1) Client-Side Scanner
-#########################
-# The camera feed and scanning happen entirely in the browser using HTML + JS.
-# It supports many 1D barcode formats (EAN, UPC, CODE_39, CODE_128, etc.).
-# We display the scanning widget in an iframe-like area (components.html).
+# Streamlit Page Configuration
+st.set_page_config(page_title="Scan Barcode", page_icon="📸", layout="wide")
 
-components.html(
-    """
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <!-- Load html5-qrcode library from CDN -->
-        <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-      </head>
-      <body>
-        <h3>Live Barcode Scanner</h3>
-        <div id="reader" style="width: 300px;"></div>
-        <div id="result" style="margin-top: 1em; color: green;">Scan a barcode to see the result here.</div>
+st.title("📸 Scan Your Products")
+st.write("Scan a barcode in your **browser** and retrieve product details instantly.")
 
-        <script>
-          // Create the Html5Qrcode object
-          const html5QrCode = new Html5Qrcode("reader");
+# Layout: Two columns
+col1, col2 = st.columns([1, 1])
 
-          // Callback when a successful scan occurs
-          function onScanSuccess(decodedText, decodedResult) {
-            // Show the result on the page
-            document.getElementById('result').innerText = 
-              "Scanned Code: " + decodedText;
-          }
+# --- 1) Live Browser Scanner (HTML + JS) in col1 ---
+with col1:
+    st.markdown("### Live Barcode Scanner (via html5-qrcode)")
+    st.info(
+        "1. **Allow camera access** if prompted.\n"
+        "2. Hold a barcode in front of your camera.\n"
+        "3. **Copy** the scanned code and paste it into the text input on the right."
+    )
 
-          // Callback for scan errors or in-progress scanning
-          function onScanError(errorMessage) {
-            // You could log errors for debugging
-          }
+    components.html(
+        """
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+          </head>
+          <body>
+            <div id="reader" style="width: 300px;"></div>
+            <div id="result" style="margin-top: 1em; color: green;">Scan a barcode to see the result here.</div>
 
-          // Start scanning using camera
-          html5QrCode.start(
-            { facingMode: "environment" }, // Or "user" for front camera
-            {
-              fps: 10,  // scans per second
-              qrbox: 250,
-              // Add supported formats for typical 1D barcodes:
-              formatsToSupport: [
-                Html5QrcodeSupportedFormats.EAN_13,
-                Html5QrcodeSupportedFormats.EAN_8,
-                Html5QrcodeSupportedFormats.UPC_A,
-                Html5QrcodeSupportedFormats.UPC_E,
-                Html5QrcodeSupportedFormats.CODE_39,
-                Html5QrcodeSupportedFormats.CODE_128,
-                Html5QrcodeSupportedFormats.ITF,      // Interleaved 2 of 5
-                Html5QrcodeSupportedFormats.RSS_EXPANDED
-              ]
-            },
-            onScanSuccess,
-            onScanError
-          ).catch((err) => {
-            document.getElementById('result').innerText = 
-              "Camera access error: " + err;
-          });
-        </script>
-      </body>
-    </html>
-    """,
-    height=600,  # Adjust height to your liking
-    scrolling=False
-)
+            <script>
+              // Create the Html5Qrcode object
+              const html5QrCode = new Html5Qrcode("reader");
 
-################################
-# 2) Paste the Barcode into Python
-################################
-st.subheader("Enter the Barcode You Scanned")
-barcode_input = st.text_input("Barcode")
+              function onScanSuccess(decodedText, decodedResult) {
+                // Show the result on the page
+                document.getElementById('result').innerText = 
+                  "Scanned Code: " + decodedText;
+              }
 
-if barcode_input:
-    st.success(f"**You entered**: `{barcode_input}`")
+              function onScanError(errorMessage) {
+                // ignore errors for now
+              }
 
-    # 3) Look up the product on OpenFoodFacts
-    url = f"https://world.openfoodfacts.org/api/v0/product/{barcode_input}.json"
-    resp = requests.get(url).json()
-    if "product" in resp:
-        product = resp["product"]
-        st.write("### Product Found:", product.get("product_name", "Unnamed Product"))
+              // Start scanning using the environment-facing camera (rear camera on mobile)
+              html5QrCode.start(
+                { facingMode: "environment" },
+                {
+                  fps: 10,  
+                  qrbox: 250,
+                  // Support typical 1D barcodes
+                  formatsToSupport: [
+                    Html5QrcodeSupportedFormats.EAN_13,
+                    Html5QrcodeSupportedFormats.EAN_8,
+                    Html5QrcodeSupportedFormats.UPC_A,
+                    Html5QrcodeSupportedFormats.UPC_E,
+                    Html5QrcodeSupportedFormats.CODE_39,
+                    Html5QrcodeSupportedFormats.CODE_128,
+                    Html5QrcodeSupportedFormats.ITF,
+                    Html5QrcodeSupportedFormats.RSS_EXPANDED
+                  ]
+                },
+                onScanSuccess,
+                onScanError
+              ).catch((err) => {
+                document.getElementById('result').innerText = 
+                  "Camera access error: " + err;
+              });
+            </script>
+          </body>
+        </html>
+        """,
+        height=500,
+        scrolling=False
+    )
 
-        # Show product image if available
-        st.image(product.get("image_url", "https://via.placeholder.com/150"), width=200)
+# --- 2) Paste Barcode & Retrieve Product ---
+with col2:
+    st.markdown("### Paste the Barcode Here")
+    barcode_data = st.text_input("Scanned Barcode")
 
-        # Allergens
-        allergens = product.get("allergens", "No allergens listed.")
-        st.markdown(f"**Allergens:** {allergens}")
+    if barcode_data:
+        st.success(f"**Barcode Detected:** `{barcode_data}`")
 
-        # Ingredients
-        ingredients_text = product.get("ingredients_text", "Ingredients not available.")
-        with st.expander("📝 Ingredients"):
-            st.write(ingredients_text)
+        # Fetch product details
+        # Instead of calling the OpenFoodFacts API directly, 
+        # we use your custom "barcode" module's function:
+        product = barcode.get_product_details(barcode_data)
 
-        # Nutritional Info
-        nutriments = product.get("nutriments", {})
-        if nutriments:
-            st.subheader("Nutritional Information per 100g")
-            df = pd.DataFrame(list(nutriments.items()), columns=["Key", "Value"])
-            df = df[df["Key"].str.endswith("_100g")]
-            df["Key"] = df["Key"].str.replace("_100g", "")
-            st.table(df)
+        if product:
+            # Display product image
+            st.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
+
+            # Collect allergens from "attribute_groups"
+            allergens = []
+            attribute_groups = product.get('attribute_groups', [])
+            for group in attribute_groups:
+                if group.get('id') == 'allergens':
+                    for attribute in group.get('attributes', []):
+                        title = attribute.get('title', '')
+                        if "Contient" in title:
+                            allergens.append(f"<span style='color:red;'>{title.replace('Contient : ', '')}</span>")
+                        elif "Peut contenir" in title:
+                            allergens.append(f"<span style='color:orange;'>{title.replace('Peut contenir : ', '')}</span>")
+
+            # Display allergen tags if any exist
+            if allergens:
+                st.markdown("**Allergens:** " + " | ".join(allergens), unsafe_allow_html=True)
+
+            # Ingredients
+            ingredients_text = product.get("ingredients_text", "Ingredients not available.")
+            with st.expander("📝 Ingredients"):
+                formatted_ingredients = "- " + "\n- ".join(ingredients_text.split(", "))
+                st.markdown(formatted_ingredients)
+
+            # Nutritional Info
+            with st.expander("Nutritional Information"):
+                nutriments = product.get("nutriments", {})
+                df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutrient", "Value"])
+                df_nutrients = df_nutrients[df_nutrients["Nutrient"].str.contains("_100g")]
+                df_nutrients["Nutrient"] = (
+                    df_nutrients["Nutrient"]
+                    .str.replace("_100g", "")
+                    .str.replace("_", " ")
+                    .str.capitalize()
+                )
+                # Convert to float if possible
+                def to_float(x):
+                    try:
+                        return float(x)
+                    except:
+                        return x
+                df_nutrients["Value"] = df_nutrients["Value"].apply(to_float)
+                st.table(df_nutrients)
+
+            with st.expander("Additional Information"):
+                st.write(f"**[OpenFoodFacts URL]({product.get('url', 'N/A')})**")
+
+            # Save JSON Button
+            json_data = json.dumps(product, indent=4)
+            file_path = os.path.join("items", f"product_{barcode_data}.json")
+            with open(file_path, "w") as json_file:
+                json_file.write(json_data)
+
+            st.download_button(
+                label="💾 Save as JSON",
+                file_name=f"product_{barcode_data}.json",
+                mime="application/json",
+                data=json_data
+            )
         else:
-            st.info("No nutritional info found.")
-
-        # Additional Info
-        st.write("**OpenFoodFacts URL**:", product.get("url", "N/A"))
+            st.error("❌ Product not found.")
     else:
-        st.error("❌ Product not found on OpenFoodFacts. Double-check the barcode!")
+        st.warning("Awaiting barcode input... Copy the scanned code from the left panel.")
+
