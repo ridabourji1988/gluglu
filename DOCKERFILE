@@ -1,0 +1,29 @@
+# ---- Stage 1: Build environment ----
+    FROM python:3.9-slim AS builder
+
+    # Install OS-level dependencies
+    RUN apt-get update && apt-get install -y \
+        ffmpeg libsm6 libxext6 libzbar0 \
+        nginx \
+        && rm -rf /var/lib/apt/lists/*
+    
+    # Set work directory
+    WORKDIR /app
+    
+    # Copy requirements and install
+    COPY requirements.txt /app
+    RUN pip install --no-cache-dir -r requirements.txt
+    
+    # Copy your Streamlit app & Nginx config
+    COPY app.py /app
+    COPY nginx.conf /etc/nginx/nginx.conf
+    
+    # ---- Stage 2: Final image ----
+    FROM builder
+    
+    # Expose port 80 (Nginx)
+    EXPOSE 80
+    
+    # Default command: start Streamlit and Nginx
+    CMD service nginx start && streamlit run app.py --server.port=8501 --server.address=0.0.0.0
+    
