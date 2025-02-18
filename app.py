@@ -34,7 +34,10 @@ def preprocess_image(image):
     # Increase contrast using adaptive thresholding
     image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 10)
 
-    # Rotate if necessary
+    # Resize image (helps with barcode detection)
+    image = cv2.resize(image, (800, 800), interpolation=cv2.INTER_LINEAR)
+
+    # Rotate image if necessary
     if image.shape[0] > image.shape[1]:  # If height > width, rotate
         image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
 
