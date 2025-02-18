@@ -5,62 +5,56 @@ import pandas as pd
 import json
 import os
 
-###########################################
-# 1) Utility: Fetch product from OpenFoodFacts
-###########################################
+##############################
+# 1) Product Detail Function #
+##############################
 def get_product_details(barcode_data):
     """
-    Fetch product details from OpenFoodFacts using 'barcode_data'.
-    Returns the 'product' dict if found, else None.
+    Example: Fetch product details from OpenFoodFacts.
+    Return a dictionary with the same keys you used in your expansions:
+      'image_url', 'attribute_groups', 'nutriments', 'ingredients_text', 'url', etc.
     """
+    # Query the OpenFoodFacts API
     url = f"https://world.openfoodfacts.org/api/v0/product/{barcode_data}.json"
     resp = requests.get(url).json()
+
     if "product" in resp:
         return resp["product"]
-    return None
+    return None  # If not found or invalid
 
-###########################################
-# 2) Basic Setup for Streamlit
-###########################################
+##############################
+# 2) Basic Setup
+##############################
 if not os.path.exists("items"):
     os.makedirs("items")
 
-st.set_page_config(page_title="Zxing Browser Barcode", page_icon="📸", layout="wide")
-st.title("📸 Zxing Browser Barcode Scanner - iFrame Camera Fix")
+st.set_page_config(page_title="Scan Barcode", page_icon="📸", layout="wide")
+st.title("📸 Scan Your Products")
+st.write("Scan a barcode in your browser and retrieve product details instantly.")
 
-st.markdown("""
-This example uses an **iframe** with explicit camera permissions. If you're on
-Streamlit Cloud (HTTPS) and your browser settings allow it, you'll be prompted
-to enable the camera. Once a barcode is detected, the URL is updated with
-**?barcode=XXXXX** automatically, and the product info is displayed below.
-""")
-
+# Read any "?barcode=XXXX" param from the URL using st.query_params
 query_params = st.query_params
-barcode_data = query_params.get("barcode", [None])[0]
+barcode_data = query_params.get("barcode", [None])[0]  # Get first value or None
 
-# Layout: left column for scanning, right column for product details
+##############################
+# 3) Two Columns
+##############################
 col1, col2 = st.columns([1, 1])
 
-###########################################
-# 3) LEFT COLUMN: Iframe with Zxing & Camera Permissions
-###########################################
+##############################
+# 4) LEFT: Browser-Based Scanner
+##############################
 with col1:
-    st.subheader("Live Scanner (No Copy-Paste)")
+    st.markdown("### Browser Scanner")
     st.info(
-        "**Usage**:\n"
-        "1) Approve camera access when prompted.\n"
-        "2) Show a barcode to the camera.\n"
-        "3) Once recognized, `?barcode=CODE` is appended to the URL.\n"
-        "4) Right column shows the product info automatically."
+        "1. **Allow camera** access when prompted.\n"
+        "2. Point a **barcode** at your camera.\n"
+        "3. When detected, the page **reloads** with `?barcode=XXX`.\n"
+        "4. See product details on the right.\n"
     )
 
-    # We embed an <iframe> that explicitly sets `allow="camera; microphone"`.
-    # Inside that iframe, we load a minimal HTML page that:
-    # 1) Includes Zxing from a CDN.
-    # 2) Accesses the camera.
-    # 3) On success, sets window.parent.location.search = "?barcode=XXXX"
-    #    so the parent page updates the query param, re-runs Streamlit with the code.
-
+    # We'll embed the Zxing code in an iframe, with camera permissions
+    # On successful scan, we set window.parent.location.search = "?barcode=thecode"
     html_content = """
     <!DOCTYPE html>
     <html>
@@ -87,13 +81,12 @@ with col1:
               logElem.innerText = "No camera found.";
               return;
             }
-            // Use the first camera device
+            // Use first camera device
             const deviceId = videoInputDevices[0].deviceId;
-
             codeReader.decodeFromVideoDevice(deviceId, videoElem, (result, err) => {
               if (result) {
                 const text = result.getText();
-                // On successful scan, update parent's URL with ?barcode=....
+                // On success, reload with ?barcode=text
                 window.parent.location.search = "barcode=" + encodeURIComponent(text);
               }
               if (err && !(err instanceof ZXing.NotFoundException)) {
@@ -109,35 +102,34 @@ with col1:
     </html>
     """
 
-    # Build an iframe that sets allow="camera; microphone"
     iframe_code = f"""
     <iframe 
       srcdoc="{html_content.replace('"', '&quot;')}"
       width="320" 
-      height="350"
+      height="370"
       allow="camera; microphone"
       style="border:none;"
-    >
-    </iframe>
+    ></iframe>
     """
 
     components.html(iframe_code, height=400, scrolling=False)
 
-###########################################
-# 4) RIGHT COLUMN: Show Product Info
-###########################################
+##############################
+# 5) RIGHT: Product Details
+##############################
 with col2:
-    st.subheader("Product Details")
-
+    st.markdown("### Product Details")
     if barcode_data:
         st.success(f"**Barcode Detected:** `{barcode_data}`")
+
+        # Fetch product details
         product = get_product_details(barcode_data)
 
         if product:
-            # Display product image
-            st.image(product.get("image_url", "https://via.placeholder.com/150"), width=200)
+            # 5A) Product Image
+            st.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
 
-            # Process allergens from attribute_groups
+            # 5B) Allergens from attribute_groups
             allergens = []
             attribute_groups = product.get('attribute_groups', [])
             for group in attribute_groups:
@@ -149,44 +141,46 @@ with col2:
                         elif "Peut contenir" in title:
                             allergens.append(f"<span style='color:orange;'>{title.replace('Peut contenir : ', '')}</span>")
 
+            # Display allergen tags if any
             if allergens:
                 st.markdown("**Allergens:** " + " | ".join(allergens), unsafe_allow_html=True)
 
-            # Ingredients
+            # 5C) Ingredients Section
             ingredients_text = product.get("ingredients_text", "Ingredients not available.")
-            st.write("#### Ingredients")
-            st.write(ingredients_text)
+            with st.expander("📝 Ingredients"):
+                formatted_ingredients = "- " + "\n- ".join(ingredients_text.split(", "))
+                st.markdown(formatted_ingredients)
 
-            # Nutritional Info
-            st.write("#### Nutritional Info (per 100g)")
-            nutriments = product.get("nutriments", {})
-            df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutrient", "Value"])
-            df_nutrients = df_nutrients[df_nutrients["Nutrient"].str.contains("_100g")]
-            df_nutrients["Nutrient"] = (
-                df_nutrients["Nutrient"]
-                .str.replace("_100g", "")
-                .str.replace("_", " ")
-                .str.capitalize()
-            )
-            def try_float(x):
-                try:
-                    return float(x)
-                except:
-                    return x
-            df_nutrients["Value"] = df_nutrients["Value"].apply(try_float)
-            st.table(df_nutrients)
+            # 5D) Nutritional Information
+            with st.expander("Nutritional Information"):
+                nutriments = product.get("nutriments", {})
+                df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutrient", "Value"])
+                # Filter for keys with "_100g"
+                df_nutrients = df_nutrients[df_nutrients["Nutrient"].str.contains("_100g")]
+                df_nutrients["Nutrient"] = (
+                    df_nutrients["Nutrient"]
+                    .str.replace("_100g", "")
+                    .str.replace("_", " ")
+                    .str.capitalize()
+                )
+                # Convert to float if possible
+                def try_float(x):
+                    try:
+                        return float(x)
+                    except:
+                        return x
+                df_nutrients["Value"] = df_nutrients["Value"].apply(try_float)
+                st.table(df_nutrients)
 
-            # Additional Info
-            st.write("#### Additional Info")
-            off_url = product.get("url", "")
-            if off_url:
-                st.write(f"[OpenFoodFacts URL]({off_url})")
+            # 5E) Additional Info
+            with st.expander("Additional Information"):
+                st.write(f"**[OpenFoodFacts URL]({product.get('url', 'N/A')})**")
 
-            # Save JSON
+            # 5F) Save JSON Button
             json_data = json.dumps(product, indent=4)
             file_path = os.path.join("items", f"product_{barcode_data}.json")
-            with open(file_path, "w") as f:
-                f.write(json_data)
+            with open(file_path, "w") as json_file:
+                json_file.write(json_data)
 
             st.download_button(
                 label="💾 Save as JSON",
@@ -195,8 +189,8 @@ with col2:
                 data=json_data
             )
         else:
-            st.error("❌ Product not found on OpenFoodFacts.")
+            st.error("❌ Product not found.")
     else:
-        st.info("No barcode detected yet. Show a barcode to the camera on the left.")
+        st.warning("No barcode detected yet. Aim your camera at a barcode on the left.")
 
 
