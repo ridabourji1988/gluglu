@@ -43,54 +43,60 @@ def scan_barcode(image):
     return None
 
 if uploaded_file:
+    # Show the uploaded image
+    col1.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
+
+    # Scan barcode from the image
     barcode_data = scan_barcode(uploaded_file)
 
-if barcode_data:
-    col2.success(f"**Barcode Detected:** `{barcode_data}`")
-    
-    # Fetch product details from OpenFoodFacts API
-    response = requests.get(f"https://world.openfoodfacts.org/api/v0/product/{barcode_data}.json")
-    product_data = response.json()
+    if barcode_data:
+        col2.success(f"**Barcode Detected:** `{barcode_data}`")
 
-    if "product" in product_data:
-        product = product_data["product"]
+        # Fetch product details from OpenFoodFacts API
+        response = requests.get(f"https://world.openfoodfacts.org/api/v0/product/{barcode_data}.json")
+        product_data = response.json()
 
-        col2.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
+        if "product" in product_data:
+            product = product_data["product"]
 
-        # Extract and display allergens
-        allergens = product.get("allergens", "No allergens listed.")
-        col2.markdown(f"**Allergens:** {allergens}")
+            col2.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
 
-        # Display Ingredients Section
-        ingredients_text = product.get("ingredients_text", "Ingredients not available.")
+            # Extract and display allergens
+            allergens = product.get("allergens", "No allergens listed.")
+            col2.markdown(f"**Allergens:** {allergens}")
 
-        with st.expander("📝 Ingredients"):
-            formatted_ingredients = "- " + "\n- ".join(ingredients_text.split(", "))
-            st.markdown(formatted_ingredients)
+            # Display Ingredients Section
+            ingredients_text = product.get("ingredients_text", "Ingredients not available.")
 
-        # Improved Nutritional Information Display
-        with st.expander("Nutritional Information"):
-            nutriments = product.get("nutriments", {})
-            df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutrient", "Value"])
-            df_nutrients = df_nutrients[df_nutrients["Nutrient"].str.contains("_100g")]
-            df_nutrients["Nutrient"] = df_nutrients["Nutrient"].str.replace("_100g", "").str.replace("_", " ").str.capitalize()
-            df_nutrients["Value"] = df_nutrients["Value"].astype(float).round(1)
-            st.table(df_nutrients)
+            with st.expander("📝 Ingredients"):
+                formatted_ingredients = "- " + "\n- ".join(ingredients_text.split(", "))
+                st.markdown(formatted_ingredients)
 
-        with st.expander("Additional Information"):
-            st.write(f"**[OpenFoodFacts URL]({product.get('url', 'N/A')})**")
+            # Improved Nutritional Information Display
+            with st.expander("Nutritional Information"):
+                nutriments = product.get("nutriments", {})
+                df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutrient", "Value"])
+                df_nutrients = df_nutrients[df_nutrients["Nutrient"].str.contains("_100g")]
+                df_nutrients["Nutrient"] = df_nutrients["Nutrient"].str.replace("_100g", "").str.replace("_", " ").str.capitalize()
+                df_nutrients["Value"] = df_nutrients["Value"].astype(float).round(1)
+                st.table(df_nutrients)
 
-        # Save JSON Button
-        json_data = json.dumps(product, indent=4)
-        file_path = os.path.join("items", f"product_{barcode_data}.json")
-        with open(file_path, "w") as json_file:
-            json_file.write(json_data)
+            with st.expander("Additional Information"):
+                st.write(f"**[OpenFoodFacts URL]({product.get('url', 'N/A')})**")
 
-        st.download_button(
-            label="💾 Save as JSON",
-            file_name=f"product_{barcode_data}.json",
-            mime="application/json",
-            data=json_data
-        )
+            # Save JSON Button
+            json_data = json.dumps(product, indent=4)
+            file_path = os.path.join("items", f"product_{barcode_data}.json")
+            with open(file_path, "w") as json_file:
+                json_file.write(json_data)
+
+            st.download_button(
+                label="💾 Save as JSON",
+                file_name=f"product_{barcode_data}.json",
+                mime="application/json",
+                data=json_data
+            )
+        else:
+            col2.error("❌ Product not found.")
     else:
-        col2.error("Product not found.")
+        col2.error("⚠️ Unable to detect barcode. Please try another image.")
