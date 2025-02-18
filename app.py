@@ -99,4 +99,19 @@ if uploaded_file:
             with st.expander("Additional Information"):
                 st.write(f"**[OpenFoodFacts URL]({product.get('url', 'N/A')})**")
 
-            # Save JS
+            # Save JSON Button
+            json_data = json.dumps(product, indent=4)
+            file_path = os.path.join("items", f"product_{barcode_data}.json")
+            with open(file_path, "w") as json_file:
+                json_file.write(json_data)
+
+            st.download_button(
+                label="💾 Save as JSON",
+                file_name=f"product_{barcode_data}.json",
+                mime="application/json",
+                data=json_data
+            )
+        else:
+            col2.error("❌ Product not found.")
+    else:
+        col2.error("⚠️ Unable to detect barcode. Try another image or improve lighting.")
