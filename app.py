@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import cv2
-from pyzbar.pyzbar import decode
+import easyocr  # OCR-based barcode reader
 from PIL import Image
 import json
 import os
@@ -44,13 +44,18 @@ def preprocess_image(image):
     return image
 
 def scan_barcode(image):
-    """Extract barcode using Pyzbar"""
+    """Extract barcode using EasyOCR"""
+    reader = easyocr.Reader(["en"])  # Initialize EasyOCR reader
     processed_image = preprocess_image(image)
-    barcodes = decode(processed_image)
 
-    for barcode in barcodes:
-        return barcode.data.decode('utf-8')
-    
+    # Perform OCR to detect text
+    result = reader.readtext(processed_image)
+
+    # Extract numeric barcode
+    for (bbox, text, prob) in result:
+        if text.isdigit():  # Check if extracted text is a number (likely a barcode)
+            return text
+
     return None
 
 if uploaded_file:
