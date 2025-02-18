@@ -29,8 +29,8 @@ st.set_page_config(page_title="Zxing Browser Barcode", page_icon="📸", layout=
 st.title("📸 Zxing Browser Barcode Scanner")
 st.write("**No system dependencies.** Barcode scanning happens in the browser using Zxing, then automatically sends the code to Python.")
 
-# We'll read any "?barcode=XXX" param from the URL
-query_params = st.experimental_get_query_params()
+# We'll read any "?barcode=XXX" param from the URL using st.query_params
+query_params = st.query_params
 barcode_data = query_params.get("barcode", [None])[0]
 
 # Layout: left column for scanning, right column for product details
@@ -52,10 +52,7 @@ with col1:
     # We define a custom HTML+JS block that:
     # - Loads Zxing from a CDN
     # - Accesses the camera
-    # - On success, calls a hidden link /?barcode=DECODED_VALUE to reload the page
-    #   with the recognized barcode in the URL param. Then Streamlit picks it up
-    #   with st.experimental_get_query_params().
-
+    # - On success, updates the URL with "?barcode=<value>" to pass the result back to Streamlit
     components.html(
         """
         <!DOCTYPE html>
@@ -70,35 +67,28 @@ with col1:
             <div id="log" style="margin-top:1em;color:green;">Initializing camera...</div>
 
             <script>
-              // Access the ZXing Browser library
               const codeReader = new ZXing.BrowserMultiFormatReader();
               const videoElem = document.getElementById('video');
               const logElem = document.getElementById('log');
 
-              // Start the camera and continuous decode
               codeReader
                 .getVideoInputDevices()
                 .then(videoInputDevices => {
-                  // Select the first device (or you can find "environment" facing)
-                  const deviceId = videoInputDevices.length > 0
-                    ? videoInputDevices[0].deviceId
-                    : null;
-
-                  if (!deviceId) {
+                  if (videoInputDevices.length === 0) {
                     logElem.innerText = "No camera found.";
                     return;
                   }
 
-                  // Start decoding from the camera
+                  // Optionally, find environment-facing camera if multiple
+                  const deviceId = videoInputDevices[0].deviceId;
+
                   codeReader.decodeFromVideoDevice(deviceId, videoElem, (result, err) => {
                     if (result) {
                       const text = result.getText();
-                      // Once we get a result, we build a new URL with "?barcode=text"
-                      // Then force a reload so Streamlit sees the param
+                      // Build new URL with "?barcode=..."
                       window.location.search = "barcode=" + encodeURIComponent(text);
                     }
                     if (err && !(err instanceof ZXing.NotFoundException)) {
-                      // if it's just "NotFound", means no barcode in frame
                       console.error(err);
                     }
                   });
@@ -185,4 +175,3 @@ with col2:
             st.error("❌ Product not found on OpenFoodFacts.")
     else:
         st.info("No barcode detected yet. Move a barcode into view on the left.")
-
