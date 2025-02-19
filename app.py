@@ -1,102 +1,185 @@
 import streamlit as st
-import numpy as np
-from PIL import Image
-import json
 import os
+import cv2
+import numpy as np
+from pyzbar.pyzbar import decode
+import json
 import pandas as pd
-import requests
-import pyzxing  # ZXing barcode reader
+import barcode  # Custom barcode.py to fetch product details
+import re
 
-# Ensure 'items' folder exists
+# ✅ Set Page Config
+st.set_page_config(page_title="Scan Barcode", page_icon="📸", layout="wide")
+
+# 🚀 Instructions for Remote Access
+with st.expander("🚀 Comment accéder à l'application à distance (Cliquer pour développer)"):
+    st.markdown("""
+    1️⃣ **Ouvrir un nouveau terminal**  
+    2️⃣ **Exécuter:**  
+       ```bash
+       ngrok authtoken YOUR_NGROK_AUTH_TOKEN
+       ```
+    3️⃣ **Exécuter:**  
+       ```bash
+       ngrok http 8503
+       ```
+    4️⃣ **Copiez l'URL générée par ngrok et collez-la dans votre navigateur.**  
+    """)
+
 if not os.path.exists("items"):
     os.makedirs("items")
 
-# Streamlit Page Configuration
-st.set_page_config(page_title="Scan Barcode", page_icon="📸", layout="wide")
+st.title("📸 Scanner vos produits")
+st.write("Scannez un code-barres et obtenez instantanément les détails du produit.")
 
-st.title("📸 Scan Your Products")
-st.write("Upload a barcode image to retrieve product details instantly.")
+# 🔍 Detect if running on Mobile or PC using JavaScript
+st.markdown(
+    """
+    <script>
+        function getDeviceType() {
+            if (/Mobi|Android/i.test(navigator.userAgent)) {
+                return "mobile";
+            } else {
+                return "desktop";
+            }
+        }
+        document.getElementById("device-type").innerText = getDeviceType();
+    </script>
+    <div id="device-type"></div>
+    """,
+    unsafe_allow_html=True,
+)
 
-# Layout: Two columns
+# Default device type
+device_type = st.session_state.get("device_type", "unknown")
+
+# ✅ Set Camera based on Device Type
+if device_type == "mobile":
+    st.info("📱 Mobile détecté : Activation de la caméra mobile.")
+    cap = cv2.VideoCapture(1)  # Mobile Front Camera (adjust if needed)
+else:
+    st.info("💻 PC détecté : Activation de la webcam.")
+    cap = cv2.VideoCapture(0)  # Default PC Webcam
+
 col1, col2 = st.columns([1, 1])
+FRAME_WINDOW = col1.image([])
+scan_active = col1.button("📷 Capturer & Détecter")
 
-# File uploader for barcode image
-uploaded_file = col1.file_uploader("Upload an image with a barcode", type=["jpg", "png", "jpeg"])
-
-barcode_data = None
-
-def scan_barcode(image):
-    """Extract barcode using ZXing"""
-    reader = pyzxing.BarCodeReader()
-    
-    # Save uploaded image temporarily
-    image_path = "temp_barcode.jpg"
-    with open(image_path, "wb") as f:
-        f.write(image.read())
-
-    # Decode barcode
-    barcode = reader.decode(image_path)
-    
-    if barcode and barcode[0]['parsed']:
-        return barcode[0]['parsed']
-    
+# 🔹 Barcode Scanner Function
+def scan_barcode():
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+        for bc in decode(frame):
+            barcode_data = bc.data.decode('utf-8')
+            rect = bc.rect
+            cv2.rectangle(frame, (rect.left, rect.top),
+                          (rect.left + rect.width, rect.top + rect.height),
+                          (0, 255, 0), 2)
+            cap.release()
+            cv2.destroyAllWindows()
+            return barcode_data
+        FRAME_WINDOW.image(frame, channels="BGR")
     return None
 
-if uploaded_file:
-    # Show the uploaded image
-    col1.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
+# ✅ Start scanning when button is pressed
+if scan_active:
+    barcode_data = scan_barcode()
 
-    # Scan barcode from the image
-    barcode_data = scan_barcode(uploaded_file)
+if barcode_data:
+    col2.success(f"**✅ Code-barres détecté:** `{barcode_data}`")
 
-    if barcode_data:
-        col2.success(f"**Barcode Detected:** `{barcode_data}`")
+    # ─────────────────────────────────────────────
+    # Fetch product details
+    product = barcode.get_product_details(barcode_data)
 
-        # Fetch product details from OpenFoodFacts API
-        response = requests.get(f"https://world.openfoodfacts.org/api/v0/product/{barcode_data}.json")
-        product_data = response.json()
+    if product:
+        col2.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
+        st.write("🔍 **Produit trouvé:**", product.get("product_name", "Nom inconnu"))
 
-        if "product" in product_data:
-            product = product_data["product"]
+        # ✅ Allergen Extraction
+        allergens = []
+        fallback_allergens_found = set()
 
-            col2.image(product.get("image_url", "https://via.placeholder.com/150"), width=250)
+        # 1️⃣ Extract allergens from attribute_groups
+        attribute_groups = product.get('attribute_groups', [])
+        for group in attribute_groups:
+            for attr in group.get('attributes', []):
+                title_attr = attr.get('title', '')
+                if "Contient" in title_attr:
+                    formatted = f"<span style='color:red;'>❗ {title_attr.replace('Contient : ', '')}</span>"
+                    allergens.append(formatted)
+                elif "Peut contenir" in title_attr:
+                    formatted = f"<span style='color:orange;'>⚠️ {title_attr.replace('Peut contenir : ', '')}</span>"
+                    allergens.append(formatted)
 
-            # Extract and display allergens
-            allergens = product.get("allergens", "No allergens listed.")
-            col2.markdown(f"**Allergens:** {allergens}")
+        # 2️⃣ Extract allergens from Ingredients
+        ingredients_text = product.get("ingredients_text", "Ingrédients non disponibles.")
+        known_allergens = ["blé", "beurre", "lait", "soja", "œufs", "graines de sésame", "fruits à coque", "amidon", "maïs", "noisettes", "cajou"]
 
-            # Display Ingredients Section
-            ingredients_text = product.get("ingredients_text", "Ingredients not available.")
+        for known in known_allergens:
+            pattern = re.compile(r'\b' + re.escape(known) + r'\b', re.IGNORECASE)
+            if pattern.search(ingredients_text):
+                fallback_allergens_found.add(known.capitalize())
+            ingredients_text = pattern.sub(f"<strong style='color:red'>{known.capitalize()}</strong>", ingredients_text)
 
-            with st.expander("📝 Ingredients"):
-                formatted_ingredients = "- " + "\n- ".join(ingredients_text.split(", "))
-                st.markdown(formatted_ingredients)
+        # 3️⃣ Extract allergens from allergens_tags
+        allergens_tags = product.get("allergens_tags", [])
+        for tag in allergens_tags:
+            tag_clean = tag.replace("fr:", "").replace("en:", "").capitalize()
+            candidate = f"<span style='color:red;'>❗ {tag_clean}</span>"
+            allergens.append(candidate)
 
-            # Improved Nutritional Information Display
-            with st.expander("Nutritional Information"):
-                nutriments = product.get("nutriments", {})
-                df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutrient", "Value"])
-                df_nutrients = df_nutrients[df_nutrients["Nutrient"].str.contains("_100g")]
-                df_nutrients["Nutrient"] = df_nutrients["Nutrient"].str.replace("_100g", "").str.replace("_", " ").str.capitalize()
-                df_nutrients["Value"] = df_nutrients["Value"].astype(float).round(1)
-                st.table(df_nutrients)
+        # Merge unique allergens
+        for fallback_allergen in fallback_allergens_found:
+            formatted = f"<span style='color:red;'>❗ {fallback_allergen}</span>"
+            if formatted not in allergens:
+                allergens.append(formatted)
 
-            with st.expander("Additional Information"):
-                st.write(f"**[OpenFoodFacts URL]({product.get('url', 'N/A')})**")
+        # Remove duplicates
+        unique_allergens = list(dict.fromkeys(allergens))
 
-            # Save JSON Button
-            json_data = json.dumps(product, indent=4)
-            file_path = os.path.join("items", f"product_{barcode_data}.json")
-            with open(file_path, "w") as json_file:
-                json_file.write(json_data)
-
-            st.download_button(
-                label="💾 Save as JSON",
-                file_name=f"product_{barcode_data}.json",
-                mime="application/json",
-                data=json_data
-            )
+        # ✅ Display Allergens
+        if unique_allergens:
+            formatted_allergens = " | ".join(unique_allergens)
+            col2.markdown(f"🚨 **Allergènes:** {formatted_allergens}", unsafe_allow_html=True)
         else:
-            col2.error("❌ Product not found.")
+            col2.info("✅ Aucun allergène détecté.")
+
+        # ✅ Display Ingredients with Highlights
+        with st.expander("📝 Ingrédients (Cliquer pour développer)"):
+            st.markdown(ingredients_text, unsafe_allow_html=True)
+
+        # ✅ Display Nutritional Information
+        with st.expander("📊 Informations nutritionnelles"):
+            nutriments = product.get("nutriments", {})
+            df_nutrients = pd.DataFrame(list(nutriments.items()), columns=["Nutriment", "Valeur"])
+            df_nutrients = df_nutrients[df_nutrients["Nutriment"].str.contains("_100g")]
+            df_nutrients["Nutriment"] = (
+                df_nutrients["Nutriment"]
+                .str.replace("_100g", "")
+                .str.replace("_", " ")
+                .str.capitalize()
+            )
+            df_nutrients["Valeur"] = df_nutrients["Valeur"].astype(float).round(1)
+            st.table(df_nutrients)
+
+        # ✅ Additional Information
+        with st.expander("🔗 Plus d'informations"):
+            st.write(f"**🔗 [Lien OpenFoodFacts]({product.get('url', 'N/A')})**")
+
+        # ✅ Save JSON Button
+        json_data = json.dumps(product, indent=4)
+        st.download_button(
+            label="💾 Télécharger les données du produit (JSON)",
+            file_name=f"product_{barcode_data}.json",
+            mime="application/json",
+            data=json_data
+        )
     else:
-        col2.error("⚠️ Unable to detect barcode. Please try another image.")
+        col2.error("❌ Produit non trouvé.")
+
+cap.release()
+cv2.destroyAllWindows()
+
